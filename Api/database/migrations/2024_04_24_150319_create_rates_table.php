@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rates', function (Blueprint $table) {
-            $table->uuid("idRate");
+            $table->uuid("idRate")->primary();
             $table->index('user_id');
             $table->foreignUuid('user_id')->references('idUser')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->index('');
+            $table->index('post_id');
             $table->foreignUuid('post_id')->references('idPost')->on('posts')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('qtdRate');
             $table->boolean('isRating')->default(0);
