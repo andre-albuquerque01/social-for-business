@@ -10,6 +10,10 @@ class Rate extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $primaryKey = "idRate";
+
+    protected $table = "rates";
+
     protected $fillable = [
         'user_id',
         'post_id',

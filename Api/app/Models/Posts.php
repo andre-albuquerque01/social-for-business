@@ -10,6 +10,10 @@ class Posts extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $primaryKey = "idPost";
+
+    protected $table = "posts";
+
     protected $fillable = [
         'imageUrlOne',
         'imageUrlTwo',

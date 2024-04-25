@@ -10,6 +10,10 @@ class Comments extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $primaryKey = "idComment";
+
+    protected $table = "comments";
+
     protected $fillable = [
         'user_id',
         'post_id',
