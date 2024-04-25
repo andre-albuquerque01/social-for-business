@@ -13,5 +13,7 @@ Route::prefix('v1')->group(function () {
         Route::get('show', [UserController::class, 'show']);
         Route::put('update', [UserController::class, 'update']);
         Route::get('', [UserController::class, 'delete']);
+        Route::get('/{email}', [UserController::class, 'verifyEmail']);
+        Route::post('/reSendEmail', [UserController::class, 'reSendEmail']);
     });
 });
