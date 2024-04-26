@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Posts extends Model
 {
@@ -19,19 +21,19 @@ class Posts extends Model
         'imageUrlTwo',
         'imageUrlThree',
         'description',
-        'user_id',
+        // 'user_idUser',
     ];
 
-    public function user()
+    public function user(): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comments::class);
     }
-    public function rates()
+    public function rates(): HasMany
     {
         return $this->hasMany(Rate::class);
     }
