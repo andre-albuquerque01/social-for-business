@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -54,17 +55,17 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(Posts::class);
     }
 
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comments::class);
     }
 
-    public function rates()
+    public function rates(): HasMany
     {
         return $this->hasMany(Rate::class);
     }
