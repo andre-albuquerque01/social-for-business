@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Rate extends Model
 {
@@ -14,16 +16,19 @@ class Rate extends Model
 
     protected $table = "rates";
 
-    protected $fillable = [
-        'user_id',
-        'post_id',
-        'qtdRate',
-        'isRating',
+    protected $foreignKeys = [
+        'user_idUser',
+        'post_idPost',
     ];
 
-    public function BelongUser()
+    protected $fillable = [
+        'user_idUser',
+        'post_idPost',
+    ];
+
+    public function BelongUser(): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function BelongPost()
