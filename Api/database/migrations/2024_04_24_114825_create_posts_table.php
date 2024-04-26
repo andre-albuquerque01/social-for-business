@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('imageUrlTwo')->nullable();
             $table->string('imageUrlThree')->nullable();
             $table->string('description');
-            // $table->uuid('user_id');
-            $table->index('user_id');
-            $table->foreignUuid('user_id')->references('idUser')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->index('user_idUser');
+            $table->foreignUuid('user_idUser')->references('idUser')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps('deleted_at');
             $table->timestamps();
         });
     }

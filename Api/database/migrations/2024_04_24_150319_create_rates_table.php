@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->uuid("idRate")->primary();
-            $table->index('user_id');
-            $table->foreignUuid('user_id')->references('idUser')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->index('post_id');
-            $table->foreignUuid('post_id')->references('idPost')->on('posts')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('qtdRate');
-            $table->boolean('isRating')->default(0);
+            $table->index('user_idUser');
+            $table->foreignUuid('user_idUser')->references('idUser')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->index('post_idPost');
+            $table->foreignUuid('post_idPost')->references('idPost')->on('posts')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
