@@ -19,8 +19,7 @@ class UserController extends Controller
 
     public function store(UserStoreRequest $data)
     {
-        $input = $data->validated();
-        return $this->userService->store($input);
+        return $this->userService->store($data->validated());
     }
 
     public function show()
@@ -30,8 +29,7 @@ class UserController extends Controller
 
     public function update(UserStoreRequest $data)
     {
-        $input = $data->validated();
-        return $this->userService->update($input);
+        return $this->userService->update($data->validated());
     }
 
     public function delete()
@@ -39,7 +37,8 @@ class UserController extends Controller
         return $this->userService->delete();
     }
 
-    public function verifyEmail(string $email){
+    public function verifyEmail(string $email)
+    {
         return $this->userService->verifyEmail($email);
     }
 
