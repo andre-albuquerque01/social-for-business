@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\RateController;
 use App\Http\Controllers\Api\UserController;
@@ -26,10 +27,15 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->prefix('post')->group(function () {
         Route::apiResource('', PostController::class);
     });
-
-    Route::middleware('auth:api')->prefix('comments')->group(function () {
-        Route::apiResource('', PostController::class);
+    
+    Route::middleware('auth:api')->prefix('comment')->group(function () {
+        Route::apiResource('', CommentController::class);
+        // Route::post('', [CommentController::class, 'store']);
+        // Route::put('/{id}', [CommentController::class, 'update']);
+        // Route::delete('/{id}', [CommentController::class, 'destroy']);
+        // Route::get('/{id}', [CommentController::class, 'show']);
     });
+
     Route::middleware('auth:api')->prefix('rate')->group(function () {
         // Route::apiResource('', RateController::class);
         Route::post('', [RateController::class, 'store']);
