@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Events\UserEmailVerification;
 use App\Exceptions\AuthException;
 use App\Exceptions\UserUpdateException;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,7 @@ class UserService
             $data['password'] = Hash::make($data['password']);
             User::create($data);
             event(new UserEmailVerification($data['email']));
-            return response()->json(['message' => "success"], 204);
+            return new UserResource(['message' => 'success']);
         } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()], 401);
         }
@@ -45,7 +46,7 @@ class UserService
             if (Hash::check($data['password'], $user->password)) {
                 $data['password'] = Hash::make($data['password']);
                 User::where('idUser', $user->idUser)->update($data);
-                return response()->json(['message' => "success"], 200);
+                return new UserResource(['message' => 'success']);
             }
             throw new UserUpdateException();
         } catch (Exception $e) {
@@ -57,14 +58,14 @@ class UserService
     {
         $id = auth()->user()->idUser;
         User::findOrFail($id)->touch("deleted_at");
-        return response()->json(['message' => "success"], 204);
+        return new UserResource(['message' => 'success']);
     }
 
     public function verifyEmail(string $email)
     {
         try {
             User::where('email', '=', Crypt::decryptString($email))->touch('email_verified_at');
-            return response()->json(['message' => 'E-mail verificado'], 200);
+            return new UserResource(['message' => 'E-mail verificado']);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
@@ -73,7 +74,7 @@ class UserService
     {
         try {
             event(new UserEmailVerification($data['email']));
-            return response()->json(['message' => 'E-mail enviado'], 200);
+            return new UserResource(['message' => 'Send email']);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }

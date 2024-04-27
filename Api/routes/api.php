@@ -29,11 +29,11 @@ Route::prefix('v1')->group(function () {
     });
     
     Route::middleware('auth:api')->prefix('comment')->group(function () {
-        Route::apiResource('', CommentController::class);
-        // Route::post('', [CommentController::class, 'store']);
-        // Route::put('/{id}', [CommentController::class, 'update']);
-        // Route::delete('/{id}', [CommentController::class, 'destroy']);
-        // Route::get('/{id}', [CommentController::class, 'show']);
+        // Route::apiResource('', CommentController::class);
+        Route::post('', [CommentController::class, 'store']);
+        Route::put('/{id}', [CommentController::class, 'update']);
+        Route::delete('/{id}', [CommentController::class, 'destroy']);
+        Route::get('/{id}', [CommentController::class, 'show']);
     });
 
     Route::middleware('auth:api')->prefix('rate')->group(function () {

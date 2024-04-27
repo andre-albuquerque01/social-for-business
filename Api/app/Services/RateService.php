@@ -56,7 +56,7 @@ class RateService
     public function destroy(string $id)
     {
         try {
-            Rate::where('post_idPost', $id)->delete();
+            Rate::whereExists('post_idPost', $id)->delete();
             return new RateResource(['message' => 'success']);
         } catch (Exception $th) {
             throw new RateException('Error: ' . $th->getMessage());

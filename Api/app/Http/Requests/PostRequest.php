@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
             'imageUrlOne' => 'required',
             'imageUrlTwo' => 'nullable',
             'imageUrlThree' => 'nullable',
-            'description' => 'required|string',
+            'description' => 'required|string|regex:/^[^<>]*$/|min:10|max:255',
         ];
 
         if ($this->method() === 'PUT' || $this->method() === 'PATCH') {
