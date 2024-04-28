@@ -44,7 +44,7 @@ class RateService
         try {
             // $exist = Rate::where('user_idUser', auth()->user()->idUser)->where('post_idPost', $id)->first();
             $exist = auth()->user()->rates()->where('post_idPost', $id)->first();
-            
+
             if (isset($exist)) {
                 return new RateResource(['message' => 'true']);
             }
@@ -56,7 +56,12 @@ class RateService
     public function destroy(string $id)
     {
         try {
-            Rate::whereExists('post_idPost', $id)->delete();
+            $exist = Rate::where('post_idPost', $id);
+
+            if(!$exist) {
+                return new RateResource(['message' => 'Not found.']);
+            }
+            $exist->delete();
             return new RateResource(['message' => 'success']);
         } catch (Exception $th) {
             throw new RateException('Error: ' . $th->getMessage());
