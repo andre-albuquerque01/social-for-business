@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
 
-    private $commentService;
+    public $commentService;
     public function __construct(CommentService $commentService)
     {
         $this->commentService = $commentService;
@@ -21,10 +21,9 @@ class CommentController extends Controller
         return $this->commentService->show($id);
     }
 
-    public function store(CommentRequest $request)
+    public function store(CommentRequest $request, CommentService $commentService)
     {
-        dd($request->validated());
-        // return $this->commentService->store($request->validated());
+        return $this->commentService->store($request->validated());
     }
 
     public function update(CommentRequest $data, string $id)
