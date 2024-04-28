@@ -22,7 +22,7 @@ class CommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'post_id' => 'required',
+            'post_idPost' => 'required',
             'comment' => 'required|string|regex:/^[^<>]*$/',
         ];
     }
