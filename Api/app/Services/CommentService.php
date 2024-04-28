@@ -24,6 +24,7 @@ class CommentService
     public function store(array $data)
     {
         try {
+            
             auth()->user()->comments()->create($data);
 
             return new CommentResource(['message' => 'success']);
