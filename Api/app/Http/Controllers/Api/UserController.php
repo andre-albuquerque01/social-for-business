@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserResource2;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class UserController extends Controller
 
     public function show()
     {
-        return new UserResource(auth()->user());
+        $user = auth()->user();
+        return new UserResource2($user);
     }
 
     public function update(UserStoreRequest $data)
