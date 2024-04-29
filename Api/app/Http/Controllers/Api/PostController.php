@@ -7,7 +7,7 @@ use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Posts;
 use App\Services\PostService;
-
+use Illuminate\Support\Facades\Gate;
 class PostController extends Controller
 {
     private $postService;
@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Posts::paginate());
+        return PostResource::collection(Posts::whereNotNull("deleted_at")->paginate());
     }
 
     /**
@@ -38,6 +38,10 @@ class PostController extends Controller
     public function show(string $id)
     {
         return new PostResource(Posts::findOrFail($id));
+    }
+    public function showUser()
+    {
+        return $this->postService->showUser();
     }
 
     /**
