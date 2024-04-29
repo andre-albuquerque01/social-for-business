@@ -15,19 +15,21 @@ Route::prefix('v1')->group(function () {
         Route::post('store', [UserController::class, 'store']);
         Route::get('/{email}', [UserController::class, 'verifyEmail']);
         Route::post('/reSendEmail', [UserController::class, 'reSendEmail']);
+    });
 
-        Route::middleware('auth:api')->group(function () {
-            Route::get('show', [UserController::class, 'show']);
-            Route::put('update', [UserController::class, 'update']);
-            Route::get('', [UserController::class, 'delete']);
-        });
+    Route::middleware('auth:api')->prefix('users')->group(function () {
+        Route::put('update', [UserController::class, 'update']);
+        Route::get('', [UserController::class, 'delete']);
+        Route::get('show', [UserController::class, 'show']);
     });
 
 
     Route::middleware('auth:api')->prefix('post')->group(function () {
         Route::apiResource('', PostController::class);
+        Route::get('/user', [PostController::class, 'showUser']);
+        Route::put('/{id}', [PostController::class, 'update']);
     });
-    
+
     Route::middleware('auth:api')->prefix('comment')->group(function () {
         // Route::apiResource('', CommentController::class);
         Route::post('', [CommentController::class, 'store']);
