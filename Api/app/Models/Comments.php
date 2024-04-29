@@ -20,13 +20,13 @@ class Comments extends Model
         'comment',
     ];
 
-    public function BelongUser()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function BelongPost()
+    public function post()
     {
-        return $this->belongsTo(Posts::class);
+        return $this->belongsTo(Posts::class, 'idPost');
     }
 }

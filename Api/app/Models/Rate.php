@@ -26,12 +26,12 @@ class Rate extends Model
         'post_idPost',
     ];
 
-    public function BelongUser(): BelongsToMany
+    public function user(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
 
-    public function BelongPost()
+    public function post()
     {
         return $this->belongsTo(Posts::class);
     }

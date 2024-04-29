@@ -24,14 +24,18 @@ class Posts extends Model
         // 'user_idUser',
     ];
 
+    protected $foreignKeys = [
+        'user_idUser',
+    ];
+
     public function user(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'user_idUser');
     }
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comments::class);
+        return $this->hasMany(Comments::class, 'post_idPost');
     }
     public function rates(): HasMany
     {
