@@ -21,7 +21,7 @@ class CommentController extends Controller
         return $this->commentService->show($id);
     }
 
-    public function store(CommentRequest $request, CommentService $commentService)
+    public function store(CommentRequest $request)
     {
         return $this->commentService->store($request->validated());
     }

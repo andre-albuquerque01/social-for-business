@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Posts::whereNotNull("deleted_at")->paginate());
+        return $this->postService->index();
     }
 
     /**
