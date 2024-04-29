@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\CommentException;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\GeneralResource;
 use App\Models\Comments;
 
 class CommentService
@@ -16,7 +17,7 @@ class CommentService
             $var = Comments::where('post_idPost', $id)->where('user_idUser', $user)->get();
 
             if (!$var) {
-                return new CommentResource(["message" => "Not found."]);
+                return new GeneralResource(["message" => "Not found."]);
             }
 
             return new CommentResource($var);
@@ -30,7 +31,7 @@ class CommentService
 
             auth()->user()->comments()->create($data);
 
-            return new CommentResource(['message' => 'success']);
+            return new GeneralResource(['message' => 'success']);
         } catch (\Throwable $e) {
             throw new CommentException($e->getMessage());
         }
@@ -43,12 +44,12 @@ class CommentService
             $var = Comments::where('post_idPost', $id)->where('user_idUser', $user)->first();
 
             if (!$var) {
-                return new CommentResource(["message" => "Not found."]);
+                return new GeneralResource(["message" => "Not found."]);
             }
 
             $var->update($data);
 
-            return new CommentResource(['message' => 'success']);
+            return new GeneralResource(['message' => 'success']);
         } catch (\Throwable $e) {
             throw new CommentException($e->getMessage());
         }
@@ -58,11 +59,11 @@ class CommentService
         try {
             $var = auth()->user()->comments()->find($id, "idComment")->first();
             if (!$var) {
-                return new CommentResource(["message" => "Not found."]);
+                return new GeneralResource(["message" => "Not found."]);
             }
 
             $var = $var->delete();
-            return new CommentResource(['message' => 'success']);
+            return new GeneralResource(['message' => 'success']);
         } catch (\Throwable $e) {
             throw new CommentException($e->getMessage());
         }

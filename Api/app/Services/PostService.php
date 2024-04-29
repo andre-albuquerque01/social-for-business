@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\PostException;
+use App\Http\Resources\GeneralResource;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostResource2;
 use App\Models\Posts;
@@ -11,6 +12,13 @@ use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
+
+    public function index()
+    {
+        $post = Posts::with('comments')->join('users','users.idUser','=','posts.user_idUser')->whereNull("posts.deleted_at")->get();
+        return PostResource::collection($post);
+    }
+
     public function store(array $data)
     {
         try {
@@ -35,7 +43,7 @@ class PostService
 
             auth()->user()->posts()->create($data);
 
-            return new PostResource(['message' => 'success']);
+            return new GeneralResource(['message' => 'success']);
         } catch (Exception $th) {
             throw new PostException('Error creating post');
         }
@@ -78,12 +86,12 @@ class PostService
             $post = Posts::where('idPost', $idPost)->where('user_idUser', $user)->first();
             
             if (!$post) {
-                return new PostResource(["message" => "Not found."]);
+                return new GeneralResource(["message" => "Not found."]);
             }
             
             $post->update($data);
 
-            return new PostResource(['message' => 'success']);
+            return new GeneralResource(['message' => 'success']);
         } catch (Exception $th) {
             throw new PostException('Error update post');
         }
