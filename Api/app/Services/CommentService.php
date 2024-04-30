@@ -22,7 +22,7 @@ class CommentService
 
             return new CommentResource($var);
         } catch (\Throwable $e) {
-            throw new CommentException($e->getMessage());
+            throw new CommentException("Error show");
         }
     }
     public function store(array $data)
@@ -33,7 +33,7 @@ class CommentService
 
             return new GeneralResource(['message' => 'success']);
         } catch (\Throwable $e) {
-            throw new CommentException($e->getMessage());
+            throw new CommentException("Error store");
         }
     }
     public function update(array $data, string $id)
@@ -44,14 +44,14 @@ class CommentService
             $var = Comments::where('post_idPost', $id)->where('user_idUser', $user)->first();
 
             if (!$var) {
-                return new GeneralResource(["message" => "Not found."]);
+                return new GeneralResource(["message" => "Unathorized"]);
             }
 
             $var->update($data);
 
             return new GeneralResource(['message' => 'success']);
         } catch (\Throwable $e) {
-            throw new CommentException($e->getMessage());
+            throw new CommentException("Error updating");
         }
     }
     public function destroy(string $id)
@@ -59,13 +59,13 @@ class CommentService
         try {
             $var = auth()->user()->comments()->find($id, "idComment")->first();
             if (!$var) {
-                return new GeneralResource(["message" => "Not found."]);
+                return new GeneralResource(["message" => "Unathorized"]);
             }
 
             $var = $var->delete();
             return new GeneralResource(['message' => 'success']);
         } catch (\Throwable $e) {
-            throw new CommentException($e->getMessage());
+            throw new CommentException("Error destroying");
         }
     }
 }
