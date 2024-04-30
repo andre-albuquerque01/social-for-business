@@ -18,8 +18,6 @@ class PostResource extends JsonResource
         return [
             "idPost" => $this->idPost,
             "imageUrlOne" => $this->imageUrlOne,
-            "imageUrlTwo" => $this->imageUrlTwo,
-            "imageUrlThree" => $this->imageUrlThree,
             "description" => $this->description,
             "created_at" => $this->created_at,
             "idUser" => $this->idUser,
