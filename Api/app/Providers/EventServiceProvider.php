@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\RecoverPassword;
 use App\Events\UserEmailVerification;
 use App\Listeners\SendEmailVerification;
+use App\Listeners\SendTokenRecover;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -16,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         UserEmailVerification::class =>[
             SendEmailVerification::class,
+        ],
+        RecoverPassword::class =>[
+            SendTokenRecover::class,
         ],
     ];
 
