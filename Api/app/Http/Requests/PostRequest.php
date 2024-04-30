@@ -23,15 +23,11 @@ class PostRequest extends FormRequest
     {
         $rules = [
             'imageUrlOne' => 'nullable',
-            'imageUrlTwo' => 'nullable',
-            'imageUrlThree' => 'nullable',
             'description' => 'required|string|regex:/^[^<>]*$/|min:10|max:255',
         ];
 
         if ($this->method() === 'PUT' || $this->method() === 'PATCH') {
             $rules['imageUrlOne'] = 'nullable';
-            $rules['imageUrlTwo'] = 'nullable';
-            $rules['imageUrlThree'] = 'nullable';
             $rules['description'] = 'nullable|string';
         }
 
