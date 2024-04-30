@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->uuid('idPost')->primary();
-            $table->string('imageUrlOne');
-            $table->string('imageUrlTwo')->nullable();
-            $table->string('imageUrlThree')->nullable();
+            $table->string('imageUrlOne')->nullable();
             $table->string('description');
             $table->index('user_idUser');
             $table->foreignUuid('user_idUser')->references('idUser')->on('users')->onDelete('cascade')->onUpdate('cascade');
