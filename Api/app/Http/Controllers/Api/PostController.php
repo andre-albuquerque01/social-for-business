@@ -57,7 +57,6 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        Posts::findOrfail($id)->touch("deleted_at");
-        return response()->json(['message' => 'success'], 200);
+        return $this->postService->destroy($id);
     }
 }
