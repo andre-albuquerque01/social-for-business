@@ -37,6 +37,6 @@ class Posts extends Model
     }
     public function rates(): HasMany
     {
-        return $this->hasMany(Rate::class);
+        return $this->hasMany(Rate::class, 'post_idPost');
     }
 }
