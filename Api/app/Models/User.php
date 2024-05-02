@@ -57,17 +57,17 @@ class User extends Authenticatable implements JWTSubject
 
     public function posts(): HasMany
     {
-        return $this->hasMany(Posts::class, 'user_idUser');
+        return $this->hasMany(Posts::class, 'user_idUser', 'idUser');
     }
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comments::class);
+        return $this->hasMany(Comments::class, 'user_idUser');
     }
 
     public function rates(): HasMany
     {
-        return $this->hasMany(Rate::class);
+        return $this->hasMany(Rate::class, 'user_idUser');
     }
 
     /**
