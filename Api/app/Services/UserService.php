@@ -18,9 +18,6 @@ use Illuminate\Support\Str;
 
 class UserService
 {
-
-    public string $criptToken;
-
     public function Auth(array $data)
     {
         try {
@@ -110,6 +107,7 @@ class UserService
                 $data = [
                     'password_reset_token' => $token,
                     'password_reset_token_expiration' => now()->addMinutes(10),
+                    'used_at' => 0,
                 ];
                 $passwordResetToken->where('email', $email)->update($data);
             } else {
@@ -117,6 +115,7 @@ class UserService
                     'email' => $user->email,
                     'password_reset_token' => $token,
                     'password_reset_token_expiration' => now()->addMinutes(10),
+                    'used_at' => 0,
                 ];
                 PasswordResetTokens::create($data);
             }
@@ -125,7 +124,7 @@ class UserService
             event(new RecoverPassword($email, $token));
 
             return new GeneralResource(['message' => 'Send email']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new UserUpdateException("Error recovering password");
         }
     }
@@ -149,7 +148,7 @@ class UserService
     {
         try {
             return new GeneralResource($this->verifyTokenValidity($token));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new UserUpdateException("Error verifying token");
         }
     }
@@ -177,7 +176,7 @@ class UserService
             ]);
 
             return new GeneralResource(['message' => 'Password successfully updated']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new UserUpdateException("Error recovering password");
         }
     }

@@ -15,7 +15,7 @@ class PostService
     public function index()
     {
         try {
-            $post = Posts::with('comments')->join('users', 'users.idUser', '=', 'posts.user_idUser')->whereNull("posts.deleted_at")->get();
+            $post = Posts::with('comments')->join('users', 'users.idUser', '=', 'posts.user_idUser')->with('rates')->whereNull("posts.deleted_at")->get();
             return PostResource::collection($post);
         } catch (Exception $th) {
             throw new PostException('Error to list post');

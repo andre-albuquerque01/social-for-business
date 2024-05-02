@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\RateException;
+use App\Http\Resources\GeneralResource;
 use App\Http\Resources\RateResource;
 use App\Models\Rate;
 use Exception;
@@ -15,7 +16,7 @@ class RateService
     {
         try {
             $rate = Rate::select('post_idPost', DB::raw('COUNT(*) as count'))->groupBy('post_idPost')->where('post_idPost', $id)->get();
-            return new RateResource($rate);
+            return new GeneralResource($rate);
         } catch (Exception $th) {
             throw new RateException('Error: ' . $th->getMessage());
         }
@@ -28,12 +29,12 @@ class RateService
             $exist = Rate::where('user_idUser', $user)->where('post_idPost', $data['post_idPost'])->first();
 
             if ($exist) {
-                return new RateResource(['message' => 'Already registered']);
+                return new GeneralResource(['message' => 'Already registered']);
             }
 
             auth()->user()->rates()->create($data);
 
-            return new RateResource(['message' => 'success']);
+            return new GeneralResource(['message' => 'success']);
         } catch (Exception $th) {
             throw new RateException('Error: ' . $th->getMessage());
         }
@@ -46,9 +47,9 @@ class RateService
             $exist = auth()->user()->rates()->where('post_idPost', $id)->first();
 
             if (isset($exist)) {
-                return new RateResource(['message' => 'true']);
+                return new GeneralResource(['message' => 'true']);
             }
-            return new RateResource(['message' => 'false']);
+            return new GeneralResource(['message' => 'false']);
         } catch (Exception $th) {
             throw new RateException('Error: ' . $th->getMessage());
         }
@@ -59,10 +60,10 @@ class RateService
             $exist = Rate::where('post_idPost', $id);
 
             if(!$exist) {
-                return new RateResource(['message' => 'Not found.']);
+                return new GeneralResource(['message' => 'Not found.']);
             }
             $exist->delete();
-            return new RateResource(['message' => 'success']);
+            return new GeneralResource(['message' => 'success']);
         } catch (Exception $th) {
             throw new RateException('Error: ' . $th->getMessage());
         }
