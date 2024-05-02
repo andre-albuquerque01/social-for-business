@@ -24,6 +24,7 @@ class PostResource extends JsonResource
             "firstName" => $this->firstName,
             "lastName" => $this->lastName,
             "comments" => CommentResource::collection($this->whenLoaded('comments')),
+            "rate" => RateResource::collection($this->whenLoaded('rates')),
         ];
     }
 }
