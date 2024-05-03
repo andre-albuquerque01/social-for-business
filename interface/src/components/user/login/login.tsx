@@ -1,26 +1,56 @@
+'use client'
 import Link from 'next/link'
-import { ButtonComponent } from '../../form/button'
 import { InputComponent } from '../../form/input'
+import { useFormState, useFormStatus } from 'react-dom'
+import { Login } from '@/actions/user/login'
+
+function FormButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <>
+      {pending ? (
+        <button
+          className="bg-red-600 text-white px-4 py-2 w-96 max-md:w-80 max-md:mx-auto rounded-lg"
+          disabled={pending}
+        >
+          Enviando...
+        </button>
+      ) : (
+        <button className="bg-red-600 text-white px-4 py-2 w-96 max-md:w-80 max-md:mx-auto rounded-lg">
+          Entrar
+        </button>
+      )}
+    </>
+  )
+}
 
 export const LoginComponent = () => {
+  const [state, action] = useFormState(Login, {
+    ok: false,
+    error: '',
+    data: null,
+  })
+
   return (
     <div className="flex flex-col ">
       {/* <h1>Login</h1> */}
-      <form className="space-y-5 flex flex-col">
+      <form action={action} className="space-y-5 flex flex-col">
         <InputComponent
           type="email"
           label="E-mail"
           name="email"
           id="email"
-          required={true}
+          required={false}
         />
         <InputComponent
           type="password"
           label="Senha"
           name="password"
           id="Senha"
-          required={true}
+          required={false}
         />
+        <span className="text-xs text-red-600">{state.error}</span>
         <p className="text-white text-xs">
           Esqueceu a senha?{' '}
           <Link
@@ -30,7 +60,7 @@ export const LoginComponent = () => {
             Recuperar
           </Link>
         </p>
-        <ButtonComponent title="Entrar" />
+        <FormButton />
       </form>
       <div className="mt-6 w-96 max-sm:w-80 text-center max-md:mx-auto space-y-5">
         <hr />
