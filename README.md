@@ -37,7 +37,7 @@ Além disso, faz uso de:
 Clone o repositório:
 
 ```bash
-git clone https://github.com/andre-albuquerque01/literate-octo-potato.git
+git clone https://github.com/andre-albuquerque01/SocialMidia.git
 ```
 
 ### Passo 2: Configuração do Back-end
@@ -45,7 +45,7 @@ git clone https://github.com/andre-albuquerque01/literate-octo-potato.git
 Entre na pasta back-end:
 
 ```bash
-cd /literate-octo-potato/back-end
+cd /SocialMidia/Api
 ```
 
 Inicialize os pacotes do Laravel:
@@ -86,7 +86,7 @@ sudo ./vendor/bin/sail down
 Entre na pasta front-end:
 
 ```bash
-cd ../front-end
+cd ../interface
 ```
 
 Baixe as dependências do Node.js:
