@@ -4,14 +4,10 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
   title: {
     template: '%s',
-    default: 'TUTU food',
+    default: 'Dashboard',
   },
 }
 
 export default function Dashboard({ children }: { children: ReactNode }) {
-  return (
-    <div className="mx-auto md:px-5 py-2 w-full h-screen max-w-[1600px] bg-slate-900">
-      {children}
-    </div>
-  )
+  return <div className="mx-auto h-screen max-w-[1200px]">{children}</div>
 }
