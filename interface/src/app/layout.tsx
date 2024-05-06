@@ -1,5 +1,6 @@
 import { fontBody } from '@/functions/font/fonts'
 import type { Metadata } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Social media',
@@ -13,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className={fontBody.className}>
-      <body className="">{children}</body>
+      <body className="bg-slate-800">{children}</body>
     </html>
   )
 }
