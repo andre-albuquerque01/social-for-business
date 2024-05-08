@@ -9,7 +9,10 @@ interface InputProps {
 export const InputComponent = ({ ...props }: InputProps) => {
   return (
     <div className="flex flex-col text-white">
-      <label htmlFor={props.id}>{props.label}</label>
+      <label htmlFor={props.id}>
+        {props.label}
+        {props.required && <span className="text-xs text-red-600"> *</span>}
+      </label>
       <input
         type={props.type}
         name={props.name}

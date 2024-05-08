@@ -7,7 +7,7 @@ export const CreatePost = () => {
           id="description"
           className="w-[100%] bg-zinc-600 p-3 outline-none rounded-lg"
           placeholder="Começar publicação..."
-          rows={3}
+          rows={5}
         ></textarea>
         <div className="flex justify-between items-center">
           <input
