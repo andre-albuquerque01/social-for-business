@@ -2,6 +2,8 @@ import { CardPostsComponent } from '@/components/dashboard/cardPost'
 import { CardUserComponent } from '@/components/dashboard/cardUser'
 import { CreatePost } from '@/components/dashboard/createPost'
 
+export const runtime = 'edge'
+
 export default function Dashboard() {
   return (
     <div className="min-h-screen text-white flex gap-4 p-4">
