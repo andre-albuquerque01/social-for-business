@@ -25,7 +25,7 @@ class PostService
     public function store(array $data)
     {
         try {
-            if ($data['imageUrlOne']) {
+            if (isset($data['imageUrlOne'])) {
                 $image = $data['imageUrlOne'];
                 $newName_image = date("H_i_s-d_m_Y.") . $image->getClientOriginalExtension();
                 Storage::disk('public')->put('img/' . $newName_image, file_get_contents($image));
