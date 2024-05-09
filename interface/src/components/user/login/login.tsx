@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { InputComponent } from '../../form/input'
 import { useFormState, useFormStatus } from 'react-dom'
 import { Login } from '@/actions/user/login'
+import { useRouter } from 'next/navigation'
 
 function FormButton() {
   const { pending } = useFormStatus()
@@ -26,11 +27,14 @@ function FormButton() {
 }
 
 export const LoginComponent = () => {
+  const router = useRouter()
   const [state, action] = useFormState(Login, {
     ok: false,
     error: '',
     data: null,
   })
+
+  if (state.ok) router.push('/dashboard')
 
   return (
     <div className="flex flex-col ">
