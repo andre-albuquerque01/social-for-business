@@ -27,7 +27,6 @@ class PostRequest extends FormRequest
         ];
 
         if ($this->method() === 'PUT' || $this->method() === 'PATCH') {
-            $rules['imageUrlOne'] = 'nullable';
             $rules['description'] = 'nullable|string';
         }
 
