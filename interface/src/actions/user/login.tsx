@@ -25,10 +25,9 @@ export async function Login(
     })
 
     const data = await response.json()
-    console.log(data)
 
     cookiesStore.set('token', data.access_token, {
-      expires: Date.now() + 2 * 60 * 1000,
+      expires: Date.now() + 2 * 60 * 10000,
       secure: true,
       httpOnly: true,
       sameSite: 'strict',
