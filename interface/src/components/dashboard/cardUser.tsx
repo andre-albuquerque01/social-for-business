@@ -1,7 +1,10 @@
+import { ShowUser } from '@/actions/user/show'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export const CardUserComponent = () => {
+export const CardUserComponent = async () => {
+  const data = await ShowUser()
+
   return (
     <div className="h-80 bg-zinc-800 rounded-lg flex flex-col justify-between">
       <div className="overflow-hidden">
@@ -10,7 +13,7 @@ export const CardUserComponent = () => {
           alt="Capa"
           width={300}
           height={100}
-          className="h-20 object-cover rounded-t-lg"
+          className="h-20 w-full object-cover rounded-t-lg"
         />
         <div className="transform mx-auto mt-[-40px] w-20 h-20 border-2 p-0.5 rounded-lg border-cyan-300">
           <Image
@@ -21,12 +24,14 @@ export const CardUserComponent = () => {
             className="rounded-lg"
           />
         </div>
-        <h1 className="text-center mt-5 font-bold uppercase">Aqua</h1>
-        <p className="text-center">Atacante</p>
+        <h1 className="text-center mt-5 font-bold uppercase">
+          {data?.firstName}
+        </h1>
+        <p className="text-center">{data?.lastName}</p>
       </div>
       <div className="h-28 border-t border-zinc-600 flex flex-col items-center justify-evenly">
         <Link
-          href=""
+          href={`/user/update/${data?.idUser}`}
           className="text-center w-40 py-2 border border-zinc-600 transform duration-500 hover:bg-zinc-900 rounded-md"
         >
           Editar perfil
