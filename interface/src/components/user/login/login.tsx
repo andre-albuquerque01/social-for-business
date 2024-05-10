@@ -15,7 +15,7 @@ function FormButton() {
           className="bg-red-600 text-white px-4 py-2 w-96 max-md:w-80 max-md:mx-auto rounded-lg"
           disabled={pending}
         >
-          Enviando...
+          Entrando...
         </button>
       ) : (
         <button className="bg-red-600 text-white px-4 py-2 w-96 max-md:w-80 max-md:mx-auto rounded-lg">
