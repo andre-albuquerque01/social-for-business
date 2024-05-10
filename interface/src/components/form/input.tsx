@@ -4,6 +4,7 @@ interface InputProps {
   id: string
   name: string
   required: boolean
+  value?: string
 }
 
 export const InputComponent = ({ ...props }: InputProps) => {
