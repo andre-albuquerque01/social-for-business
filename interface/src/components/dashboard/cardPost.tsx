@@ -35,16 +35,18 @@ export const CardPostsComponent = async () => {
               <span className="uppercase font-bold">{post.firstName}</span>{' '}
               <span> {post.lastName}</span>
             </div>
-            <div className="mt-4 text-white">
-              <p>{post.description}</p>
-              <Image
-                // src={`${post.imageUrlOne}`}
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5sBJBIfQ8eG49ACgcJGpIfiGBXksA_-CayA&usqp=CAU"
-                alt="Image post"
-                width={550}
-                height={550}
-                className="object-scale-down mx-auto w-80 h-80"
-              />
+            <div className="mt-4 text-white text-justify">
+              <p style={{ wordWrap: 'break-word' }}>{post.description}</p>
+              {post.imageUrlOne && (
+                <Image
+                  // src={`${post.imageUrlOne}`}
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5sBJBIfQ8eG49ACgcJGpIfiGBXksA_-CayA&usqp=CAU"
+                  alt="Image post"
+                  width={550}
+                  height={550}
+                  className="object-scale-down mx-auto w-80 h-80"
+                />
+              )}
             </div>
             {post.comments.length > 0 && (
               <div className="mt-4 text-justify bg-zinc-700 rounded-lg">
@@ -57,7 +59,12 @@ export const CardPostsComponent = async () => {
                       </span>{' '}
                       <span> {comment.lastName}</span>
                     </div>
-                    <p className="">{comment.comment}</p>
+                    <p
+                      className="min-h-5 text-justify"
+                      style={{ wordWrap: 'break-word' }}
+                    >
+                      {comment.comment}
+                    </p>
                   </div>
                 ))}
               </div>
