@@ -22,7 +22,6 @@ export async function CreatePostAction(
     })
 
     const data = await response.json()
-    console.log(data)
 
     if (
       data.message === 'The description field must be at least 10 characters.'
