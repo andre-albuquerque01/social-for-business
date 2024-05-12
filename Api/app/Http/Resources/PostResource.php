@@ -20,9 +20,9 @@ class PostResource extends JsonResource
             "imageUrlOne" => $this->imageUrlOne,
             "description" => $this->description,
             "created_at" => $this->created_at,
-            "idUser" => $this->idUser,
-            "firstName" => $this->firstName,
-            "lastName" => $this->lastName,
+            "idUser" => $this->user->idUser,
+            "firstName" => $this->user->firstName,
+            "lastName" => $this->user->lastName,
             "comments" => CommentResource::collection($this->whenLoaded('comments')),
             "rate" => RateResource::collection($this->whenLoaded('rates')),
         ];
