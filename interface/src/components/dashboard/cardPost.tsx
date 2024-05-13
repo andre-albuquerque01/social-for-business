@@ -1,5 +1,7 @@
 import { ShowPost } from '@/actions/post/show'
 import Image from 'next/image'
+import { CommentForm } from '../form/commentForm'
+import { FormatData } from '@/functions/formatData'
 
 interface Post {
   idPost: string
@@ -27,16 +29,16 @@ export const CardPostsComponent = async () => {
     <>
       {data &&
         data.map((post) => (
-          <div
-            className="bg-zinc-800 min-h-32 p-6 max-md:w-full"
-            key={post.idPost}
-          >
-            <div className="">
-              <span className="uppercase font-bold">{post.firstName}</span>{' '}
-              <span> {post.lastName}</span>
+          <div className="bg-zinc-800 min-h-32 p-6 " key={post.idPost}>
+            <div className="flex justify-between items-center">
+              <div className="">
+                <span className="uppercase font-bold">{post.firstName}</span>{' '}
+                <span> {post.lastName}</span>
+              </div>
+              <div className="opacity-50">{FormatData(post.created_at)}</div>
             </div>
-            <div className="mt-4 text-white text-justify">
-              <p style={{ wordWrap: 'break-word' }}>{post.description}</p>
+            <div className="mt-4 text-white text-justify break-words">
+              <p>{post.description}</p>
               {post.imageUrlOne && (
                 <Image
                   // src={`${post.imageUrlOne}`}
@@ -49,39 +51,30 @@ export const CardPostsComponent = async () => {
               )}
             </div>
             {post.comments.length > 0 && (
-              <div className="mt-4 text-justify bg-zinc-700 rounded-lg">
+              <div className="mt-4 text-justify bg-zinc-700 rounded-lg max-w-full">
                 <h2 className="px-3 font-semibold">Comentários</h2>
                 {post.comments.map((comment) => (
                   <div key={comment.idComment} className="p-3">
-                    <div>
-                      <span className="uppercase font-bold">
-                        {comment.firstName}
-                      </span>{' '}
-                      <span> {comment.lastName}</span>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <span className="uppercase font-bold">
+                          {comment.firstName}
+                        </span>{' '}
+                        <span> {comment.lastName}</span>
+                      </div>
+                      <div className="text-sm opacity-50">
+                        {FormatData(comment.created_at)}
+                      </div>
                     </div>
-                    <p
-                      className="min-h-5 text-justify"
-                      style={{ wordWrap: 'break-word' }}
-                    >
-                      {comment.comment}
-                    </p>
+                    <div className="text-wrap break-words text-justify">
+                      <p className="min-h-5">{comment.comment}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             )}
             <div className="bg-zinc-700 h-auto p-4 rounded-lg mt-2">
-              <form action="">
-                <textarea
-                  name="description"
-                  id="description"
-                  className="w-[100%] bg-zinc-600 p-3 outline-none rounded-lg"
-                  placeholder="Começar comentar..."
-                  rows={3}
-                ></textarea>
-                <button className="bg-blue-600 text-white px-4 py-2 w-32 rounded-lg">
-                  Comentar
-                </button>
-              </form>
+              <CommentForm idPost={post.idPost} />
             </div>
           </div>
         ))}
