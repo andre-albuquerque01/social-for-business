@@ -2,8 +2,8 @@
 import Link from 'next/link'
 import { InputComponent } from '../../form/input'
 import { useFormState, useFormStatus } from 'react-dom'
-import { Login } from '@/actions/user/login'
 import { useRouter } from 'next/navigation'
+import { Login } from '@/actions/user/login'
 
 function FormButton() {
   const { pending } = useFormStatus()
