@@ -26,14 +26,14 @@ export async function ShowPost() {
   try {
     const response = await ApiAction('/post', {
       headers: {
-        'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: 'Bearer' + cookies().get('token')?.value,
       },
-      // next: {
-      //   revalidate: 60 * 30,
-      //   tags: ['post'],
-      // },
-      cache: 'no-cache',
+      next: {
+        revalidate: 60 * 30,
+        tags: ['post'],
+      },
+      // cache: 'no-cache',
     })
     const data = await response.json()
 
