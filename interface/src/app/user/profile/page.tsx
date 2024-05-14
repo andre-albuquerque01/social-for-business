@@ -1,0 +1,15 @@
+import { CardUserComponent } from '@/components/dashboard/cardUser'
+import { ProfilePostComponent } from '@/components/user/profile/profile'
+
+export default function Profile() {
+  return (
+    <div className="min-h-screen text-white flex gap-4 p-4 max-md:flex-col ">
+      <div className="md:w-[25%] md:max-w-full">
+        <CardUserComponent />
+      </div>
+      <div className="space-y-4 md:w-[75%] md:max-w-full">
+        <ProfilePostComponent />
+      </div>
+    </div>
+  )
+}
