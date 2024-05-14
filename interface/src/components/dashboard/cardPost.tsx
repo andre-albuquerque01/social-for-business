@@ -2,6 +2,7 @@ import { ShowPost } from '@/actions/post/show'
 import Image from 'next/image'
 import { CommentForm } from '../form/commentForm'
 import { FormatData } from '@/functions/formatData'
+import Link from 'next/link'
 
 interface Post {
   idPost: string
@@ -32,8 +33,10 @@ export const CardPostsComponent = async () => {
           <div className="bg-zinc-800 min-h-32 p-6 " key={post.idPost}>
             <div className="flex justify-between items-center">
               <div className="">
-                <span className="uppercase font-bold">{post.firstName}</span>{' '}
-                <span> {post.lastName}</span>
+                <Link href={`/user/profile/${post.idUser}`}>
+                  <span className="uppercase font-bold">{post.firstName}</span>{' '}
+                  <span> {post.lastName}</span>
+                </Link>
               </div>
               <div className="opacity-50">{FormatData(post.created_at)}</div>
             </div>
@@ -41,7 +44,7 @@ export const CardPostsComponent = async () => {
               <p>{post.description}</p>
               {post.imageUrlOne && (
                 <Image
-                  // src={`${post.imageUrlOne}`}
+                  // src={`/mnt/069E34C19E34AB57/SocialMidia/Api/storage/app/public/img/${post.imageUrlOne}`}
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5sBJBIfQ8eG49ACgcJGpIfiGBXksA_-CayA&usqp=CAU"
                   alt="Image post"
                   width={550}
