@@ -30,6 +30,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->prefix('post')->group(function () {
         Route::apiResource('', PostController::class);
         Route::get('/user', [PostController::class, 'showUser']);
+        Route::get('/showUser/{id}', [PostController::class, 'showPostUser']);
         Route::put('/{id}', [PostController::class, 'update']);
     });
 
