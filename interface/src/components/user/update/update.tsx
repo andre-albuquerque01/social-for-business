@@ -1,8 +1,12 @@
+'use client'
+import { UserInterface } from '@/actions/user/show'
 import { UpdateUser } from '@/actions/user/update'
 import { ButtonComponent } from '@/components/form/button'
-import { InputComponent } from '@/components/form/input'
+import { InputUpdateComponent } from '@/components/form/inputUpdate'
 import Link from 'next/link'
-import { useFormState, useFormStatus } from 'react-dom'
+import { FormEvent, useState } from 'react'
+import { useFormStatus } from 'react-dom'
+import { GoArrowLeft } from 'react-icons/go'
 
 function FormButton() {
   const { pending } = useFormStatus()
@@ -23,52 +27,64 @@ function FormButton() {
   )
 }
 
-export default function UpdateUserComponent() {
-  const [state, action] = useFormState(UpdateUser, {
-    ok: false,
-    error: '',
-    data: null,
-  })
+export default function UpdateUserComponent({ data }: { data: UserInterface }) {
+  const [error, setError] = useState('')
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const formData = new FormData(e.currentTarget)
+    const data = Object.fromEntries(formData)
+    const req = await UpdateUser(data)
+    setError(req)
+    if (req === '') {
+      window.location.href = '/dashboard'
+    }
+  }
 
   return (
-    <form className="space-y-5 flex flex-col text-white" action={action}>
-      <Link href="/">{'<- Voltar'}</Link>
-      <InputComponent
+    <form
+      className="space-y-5 flex flex-col text-white"
+      onSubmit={handleSubmit}
+    >
+      <Link
+        href="/dashboard"
+        className="flex items-center gap-2 hover:text-zinc-600 w-20"
+      >
+        <GoArrowLeft className="w-5 h-5" />
+        Voltar
+      </Link>
+      <InputUpdateComponent
         type="text"
         label="Nome"
         name="firstName"
         id="firstName"
         required={true}
+        value={data?.firstName}
       />
-      <InputComponent
+      <InputUpdateComponent
         type="text"
         label="Sobrenome"
         name="lastName"
         id="lastName"
         required={true}
+        value={data?.lastName}
       />
-      <InputComponent
+      <InputUpdateComponent
         type="email"
         label="E-mail"
         name="email"
         id="email"
         required={true}
+        value={data?.email}
       />
-      <InputComponent
+      <InputUpdateComponent
         type="password"
         label="Senha"
         name="password"
         id="Senha"
         required={true}
       />
-      <InputComponent
-        type="password"
-        label="Confirmação de senha"
-        name="password_confirmation"
-        id="Confirmação de senha"
-        required={true}
-      />
-      <p className="text-xs text-red-600">{state.error}</p>
+      <p className="text-xs text-red-600">{error && error}</p>
       <FormButton />
     </form>
   )
