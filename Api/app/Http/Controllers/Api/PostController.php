@@ -44,6 +44,11 @@ class PostController extends Controller
         return $this->postService->showUser();
     }
 
+    public function showPostUser(string $id)
+    {
+        return $this->postService->showPostUser($id);
+    }
+
     /**
      * Update the specified resource in storage.
      */
