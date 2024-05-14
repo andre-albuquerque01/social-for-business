@@ -76,12 +76,6 @@ class UserStoreRequest extends FormRequest
             ];
             $rules["password"] = [
                 'required',
-                Password::min(8)
-                    ->mixedCase()
-                    ->letters()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised(),
             ];
             $rules["password_confirmation"] = [
                 'nullable',
