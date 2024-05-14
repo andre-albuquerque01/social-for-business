@@ -1,7 +1,7 @@
 'use client'
 import { CreatePostAction } from '@/actions/post/create'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 
 function FormButton() {
@@ -32,9 +32,23 @@ export const CreatePost = () => {
   })
 
   const [img, setImg] = useState('')
+  const [description, setDescription] = useState('')
 
   function handleImgChange({ target }: React.ChangeEvent<HTMLInputElement>) {
-    if (target.files) setImg(URL.createObjectURL(target.files[0]))
+    if (target.files && target.files.length > 0)
+      setImg(URL.createObjectURL(target.files[0]))
+  }
+
+  useEffect(() => {
+    if (state.ok) {
+      setImg('')
+      setDescription('')
+    }
+  }, [state])
+  function handleDescriptionChange(
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) {
+    setDescription(event.target.value)
   }
 
   return (
@@ -46,6 +60,8 @@ export const CreatePost = () => {
           className="w-[100%] bg-zinc-600 p-3 outline-none rounded-lg"
           placeholder="Começar publicação..."
           rows={5}
+          value={description}
+          onChange={handleDescriptionChange}
         ></textarea>
         <div className="flex justify-between items-center">
           <input

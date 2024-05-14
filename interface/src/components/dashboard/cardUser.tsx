@@ -1,9 +1,11 @@
-import { ShowUser } from '@/actions/user/show'
+import { ShowUser, UserInterface } from '@/actions/user/show'
 import Image from 'next/image'
 import Link from 'next/link'
+import { LogoutComponent } from '../user/logout/logout'
 
 export const CardUserComponent = async () => {
-  const data = await ShowUser()
+  const dt = await ShowUser()
+  const data: UserInterface = dt.data
 
   return (
     <div className="h-80 bg-zinc-800 rounded-lg flex flex-col justify-between">
@@ -24,21 +26,21 @@ export const CardUserComponent = async () => {
             className="rounded-lg"
           />
         </div>
-        <h1 className="text-center mt-5 font-bold uppercase">
-          {data?.firstName}
-        </h1>
-        <p className="text-center">{data?.lastName}</p>
+        <Link href="/user/profile">
+          <h1 className="text-center mt-5 font-bold uppercase">
+            {data?.firstName}
+          </h1>
+          <p className="text-center">{data?.lastName}</p>
+        </Link>
       </div>
       <div className="h-28 border-t border-zinc-600 flex flex-col items-center justify-evenly">
         <Link
-          href={`/user/update/${data?.idUser}`}
+          href={`/user/update`}
           className="text-center w-40 py-2 border border-zinc-600 transform duration-500 hover:bg-zinc-900 rounded-md"
         >
           Editar perfil
         </Link>
-        <button className="py-2 w-40 border border-zinc-600 transform duration-500 hover:bg-zinc-900 rounded-md">
-          Sair
-        </button>
+        <LogoutComponent />
       </div>
     </div>
   )

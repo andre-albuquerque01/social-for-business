@@ -1,5 +1,6 @@
 'use client'
 import { CreateCommentAction } from '@/actions/comments/create'
+import { useEffect, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 
 function FormBtn() {
@@ -30,6 +31,17 @@ export function CommentForm({ idPost }: { idPost: string }) {
     data: null,
   })
 
+  const [comment, setComment] = useState('')
+
+  useEffect(() => {
+    if (state.ok) {
+      setComment('')
+    }
+  }, [state])
+  function handleCommentChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    setComment(event.target.value)
+  }
+
   return (
     <form action={action}>
       <input type="hidden" name="post_idPost" value={idPost} />
@@ -40,6 +52,8 @@ export function CommentForm({ idPost }: { idPost: string }) {
         placeholder="Começar comentar..."
         rows={3}
         required
+        value={comment}
+        onChange={handleCommentChange}
       ></textarea>
       <FormBtn />
       {state.error}
