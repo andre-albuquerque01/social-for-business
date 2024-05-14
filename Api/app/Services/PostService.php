@@ -28,7 +28,7 @@ class PostService
             if (isset($data['imageUrlOne'])) {
                 $image = $data['imageUrlOne'];
                 if ($image->getClientOriginalExtension() != null) {
-                    $newName_image = date("H_i_s-d_m_Y.") . $image->getClientOriginalExtension();
+                    $newName_image = date("H-i-s-d-m-Y.") . $image->getClientOriginalExtension();
                     Storage::disk('public')->put('img/' . $newName_image, file_get_contents($image));
                     $data['imageUrlOne'] = $newName_image;
                 } else {
@@ -49,8 +49,18 @@ class PostService
     public function showUser()
     {
         try {
-            $show = auth()->user()->posts()->with('comments');
-            return new PostResource($show->get());
+            $show = auth()->user()->posts()->with('comments')->with('rates')->whereNull("posts.deleted_at")->get();
+            return PostResource::collection($show);
+        } catch (Exception $th) {
+            throw new PostException('Error creating post');
+        }
+    }
+
+    public function showPostUser(string $idUser)
+    {
+        try {
+            $post = Posts::where('posts.user_idUser','=', $idUser)->with('comments')->with('rates')->whereNull("posts.deleted_at")->orderBy('posts.updated_at', 'DESC')->get();
+            return PostResource::collection($post);
         } catch (Exception $th) {
             throw new PostException('Error creating post');
         }
