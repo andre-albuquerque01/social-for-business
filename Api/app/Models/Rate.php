@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Rate extends Model
 {
@@ -26,13 +25,13 @@ class Rate extends Model
         'post_idPost',
     ];
 
-    public function user(): BelongsToMany
+    public function user(): BelongsTo
     {
-        return $this->belongsToMany(User::class, 'idUser');
+        return $this->belongsTo(User::class, 'user_idUser');
     }
 
     public function post()
     {
-        return $this->belongsTo(Posts::class, 'idPost');
+        return $this->belongsTo(Posts::class, 'post_idPost');
     }
 }
