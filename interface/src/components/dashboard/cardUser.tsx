@@ -2,13 +2,14 @@ import { ShowUser, UserInterface } from '@/actions/user/show'
 import Image from 'next/image'
 import Link from 'next/link'
 import { LogoutComponent } from '../user/logout/logout'
+import { BackDashboardComponent } from './backDashboard'
 
 export const CardUserComponent = async () => {
   const dt = await ShowUser()
   const data: UserInterface = dt.data
 
   return (
-    <div className="h-80 bg-zinc-800 rounded-lg flex flex-col justify-between">
+    <div className="h-96 bg-zinc-800 rounded-lg flex flex-col justify-between">
       <div className="overflow-hidden">
         <Image
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTURbIoeJgEiJYffLbcmddMTSvsoPSmxK4f2g&usqp=CAU"
@@ -33,7 +34,8 @@ export const CardUserComponent = async () => {
           <p className="text-center">{data?.lastName}</p>
         </Link>
       </div>
-      <div className="h-28 border-t border-zinc-600 flex flex-col items-center justify-evenly">
+      <div className="h-auto border-t border-zinc-600 flex flex-col items-center justify-evenly gap-3 p-3">
+        <BackDashboardComponent />
         <Link
           href={`/user/update`}
           className="text-center w-40 py-2 border border-zinc-600 transform duration-500 hover:bg-zinc-900 rounded-md"

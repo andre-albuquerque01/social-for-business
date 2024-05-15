@@ -1,27 +1,50 @@
+'use client'
+import { SendEmail } from '@/actions/user/sendEmail'
 import { ButtonComponent } from '@/components/form/button'
 import { InputComponent } from '@/components/form/input'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { useFormState, useFormStatus } from 'react-dom'
+import { GoArrowLeft } from 'react-icons/go'
+
+function FormButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <>
+      {pending ? (
+        <button
+          className="bg-red-600 text-white px-4 py-2 w-96 max-md:w-80 max-md:mx-auto rounded-lg"
+          disabled={pending}
+        >
+          Enviando...
+        </button>
+      ) : (
+        <ButtonComponent title="Enviar" />
+      )}
+    </>
+  )
+}
 
 export const SendEmailComponent = () => {
-  const router = useRouter()
+  const [state, action] = useFormState(SendEmail, {
+    ok: false,
+    data: null,
+    error: '',
+  })
   return (
     <div className="text-white space-y-5">
-      <div
-        onClick={(e) => {
-          e.preventDefault()
-          router.back()
-        }}
-      >
-        {'<- Voltar'}
-      </div>
+      <Link href="/" className="flex items-center gap-2 w-20">
+        <GoArrowLeft className="w-5 h-5" />
+        Voltar
+      </Link>
       <h1>Recuperar senha</h1>
       <p className="w-96 max-md:w-80">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur id
-        deleniti porro eos obcaecati, quam ratione provident dolore. Praesentium
-        inventore fugit rerum. Numquam asperiores quis, itaque magnam ipsam
-        dolorem tenetur!
+        Enviaremos um email para o endereço fornecido com as instruções
+        necessárias para recuperação de senha. Por favor, verifique sua caixa de
+        entrada e também a pasta de spam, caso não encontre o email em sua caixa
+        principal.
       </p>
-      <form className="space-y-5 flex flex-col ">
+      <form className="space-y-5 flex flex-col" action={action}>
         <InputComponent
           type="email"
           label="E-mail"
@@ -29,8 +52,8 @@ export const SendEmailComponent = () => {
           id="email"
           required={true}
         />
-
-        <ButtonComponent title="Enviar" />
+        <span className="text-sm text-red-600">{state.error}</span>
+        <FormButton />
       </form>
     </div>
   )
