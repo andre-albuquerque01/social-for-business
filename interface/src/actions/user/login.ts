@@ -3,6 +3,7 @@
 import apiError from '@/functions/api-error'
 import ApiAction from '@/functions/data/apiAction'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export async function Login(
   state: { ok: boolean; error: string; data: null },
@@ -25,6 +26,11 @@ export async function Login(
     })
 
     const data = await response.json()
+    console.log(data)
+
+    if (data.data && data.data.message === 'E-mail não verificado') {
+      throw new Error('E-mail não verificado!')
+    }
 
     cookiesStore.set('token', data.access_token, {
       expires: Date.now() + 2 * 60 * 60 * 1000,
@@ -34,9 +40,8 @@ export async function Login(
     })
 
     if (!response.ok) throw new Error('Senha ou usuário inválido!')
-
-    return { data: null, error: '', ok: true }
   } catch (error) {
     return apiError(error)
   }
+  redirect('/dashboard')
 }
