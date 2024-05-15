@@ -21,7 +21,9 @@ class UserService
     public function Auth(array $data)
     {
         try {
-
+            if (User::where('email', $data['email'])->whereNull('email_verified_at')->exists()) {
+                return new GeneralResource(['message' => 'E-mail não verificado']);
+            }
             if (!$token = auth()->attempt($data)) {
                 throw new AuthException();
             }
@@ -84,6 +86,10 @@ class UserService
     public function reSendEmail(array $data)
     {
         try {
+            if (!User::where('email', $data['email'])->exists()) {
+                return new GeneralResource(['message' => 'User not found']);
+            }
+
             event(new UserEmailVerification($data['email']));
             return new GeneralResource(['message' => 'Send email']);
         } catch (Exception $e) {
