@@ -2,7 +2,6 @@
 import Link from 'next/link'
 import { InputComponent } from '../../form/input'
 import { useFormState, useFormStatus } from 'react-dom'
-import { useRouter } from 'next/navigation'
 import { Login } from '@/actions/user/login'
 
 function FormButton() {
@@ -26,19 +25,18 @@ function FormButton() {
   )
 }
 
-export const LoginComponent = () => {
-  const router = useRouter()
+export const LoginComponent = ({ message }: { message: string }) => {
   const [state, action] = useFormState(Login, {
     ok: false,
     error: '',
     data: null,
   })
 
-  if (state.ok) router.push('/dashboard')
-
   return (
     <div className="flex flex-col ">
       {/* <h1>Login</h1> */}
+      <span className="text-blue-600 text-sm">{message && message}</span>
+
       <form action={action} className="space-y-5 flex flex-col">
         <InputComponent
           type="email"
@@ -54,7 +52,17 @@ export const LoginComponent = () => {
           id="Senha"
           required={false}
         />
-        <span className="text-xs text-red-600">{state.error}</span>
+        <span className="text-xs text-red-600">
+          {state.error}{' '}
+          {state.error === 'E-mail não verificado!' && (
+            <Link
+              href="/user/verify"
+              className="text-blue-500 text-xs hover:underline"
+            >
+              Verificar e-mail
+            </Link>
+          )}
+        </span>
         <p className="text-white text-xs">
           Esqueceu a senha?{' '}
           <Link
