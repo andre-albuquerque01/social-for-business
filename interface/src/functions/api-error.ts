@@ -4,7 +4,7 @@ export default function apiError(error: unknown): {
   ok: false
 } {
   if (error instanceof Error) {
-    return { data: null, error: 'Houve error, tente novamente', ok: false }
+    return { data: null, error: error.message, ok: false }
   }
   return { data: null, error: 'Error', ok: false }
 }
