@@ -30,8 +30,9 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->prefix('post')->group(function () {
         Route::apiResource('', PostController::class);
         Route::get('/user', [PostController::class, 'showUser']);
+        Route::get('/show/{id}', [PostController::class, 'show']);
         Route::get('/showUser/{id}', [PostController::class, 'showPostUser']);
-        Route::put('/{id}', [PostController::class, 'update']);
+        Route::put('/update/{id}', [PostController::class, 'update']);
     });
 
     Route::middleware('auth:api')->prefix('comment')->group(function () {
