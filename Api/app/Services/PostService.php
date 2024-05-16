@@ -15,7 +15,7 @@ class PostService
     public function index()
     {
         try {
-            $post = Posts::with('comments')->with('rates')->whereNull("posts.deleted_at")->orderBy('posts.updated_at', 'DESC')->get();
+            $post = Posts::with('comments')->with('rates')->whereNull("posts.deleted_at")->latest('posts.updated_at')->get();
             return PostResource::collection($post);
         } catch (Exception $th) {
             throw new PostException('Error to list post');
@@ -71,9 +71,13 @@ class PostService
         try {
             if (isset($data['imageUrlOne'])) {
                 $image = $data['imageUrlOne'];
-                $newName_image = date("H_i_s-d_m_Y.") . $image->getClientOriginalExtension();
-                Storage::disk('public')->put('img/' . $newName_image, file_get_contents($image));
-                $data['imageUrlOne'] = $newName_image;
+                if ($image->getClientOriginalExtension() != null) {
+                    $newName_image = date("H-i-s-d-m-Y.") . $image->getClientOriginalExtension();
+                    Storage::disk('public')->put('img/' . $newName_image, file_get_contents($image));
+                    $data['imageUrlOne'] = $newName_image;
+                }
+            } else {
+                $data['imageUrlOne'] = null;
             }
 
             $user = auth()->user()->idUser;
@@ -83,7 +87,7 @@ class PostService
             if (!$post) {
                 return new GeneralResource(["message" => "Unathorized"]);
             }
-
+            
             $post->update($data);
 
             return new GeneralResource(['message' => 'success']);
