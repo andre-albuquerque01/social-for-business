@@ -10,7 +10,7 @@ export async function UpdateUser(request: object) {
       method: 'PUT',
       headers: {
         accept: 'application/json',
-        Authorization: 'Bearer' + cookies().get('token')?.value,
+        Authorization: 'Bearer ' + cookies().get('token')?.value,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(request),

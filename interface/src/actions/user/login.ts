@@ -26,7 +26,6 @@ export async function Login(
     })
 
     const data = await response.json()
-    console.log(data)
 
     if (data.data && data.data.message === 'E-mail não verificado') {
       throw new Error('E-mail não verificado!')
