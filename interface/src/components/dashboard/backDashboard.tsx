@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 
 export const BackDashboardComponent = () => {
   const pathName = usePathname()
-  console.log(pathName)
 
   if (pathName !== '/dashboard') {
     return (

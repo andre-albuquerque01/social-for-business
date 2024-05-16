@@ -1,10 +1,11 @@
-import { ShowPost } from '@/actions/post/show'
 import Image from 'next/image'
 import { CommentForm } from '../form/commentForm'
 import { FormatData } from '@/functions/formatData'
 import Link from 'next/link'
+import { DropdownPost } from '../other/dropdownPost'
+import { ShowUser, UserInterface } from '@/actions/user/show'
 
-interface Post {
+export interface Post {
   idPost: string
   imageUrlOne: string
   description: string
@@ -23,9 +24,9 @@ interface Post {
   rate: { idRate: string }[]
 }
 
-export const CardPostsComponent = async () => {
-  const data: Post[] = await ShowPost()
-
+export const CardPostsComponent = async ({ data }: { data: Post[] }) => {
+  const dt = await ShowUser()
+  const user: UserInterface = dt.data
   return (
     <>
       {data &&
@@ -38,7 +39,12 @@ export const CardPostsComponent = async () => {
                   <span> {post.lastName}</span>
                 </Link>
               </div>
-              <div className="opacity-50">{FormatData(post.created_at)}</div>
+              <div className="opacity-50 flex gap-2">
+                {FormatData(post.created_at)}
+                {user.idUser === post.idUser && (
+                  <DropdownPost idPost={post.idPost} />
+                )}
+              </div>
             </div>
             <div className="mt-4 text-white text-justify break-words">
               <p>{post.description}</p>
