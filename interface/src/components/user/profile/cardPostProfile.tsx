@@ -4,29 +4,22 @@ import Link from 'next/link'
 import { ShowUser, UserInterface } from '@/actions/user/show'
 import { CommentForm } from '@/components/form/commentForm'
 import { DropdownPost } from '@/components/other/dropdownPost'
+import { DropdownComment } from '@/components/other/dropdownComment'
+import LinkPagination from '@/components/other/LinkPagination'
+import { Post } from '@/components/dashboard/cardPost'
 
-export interface Post {
-  idPost: string
-  imageUrlOne: string
-  description: string
-  created_at: string
-  idUser: string
-  firstName: string
-  lastName: string
-  comments: {
-    firstName: string
-    lastName: string
-    idComment: string
-    post_idPost: string
-    comment: string
-    created_at: string
-  }[]
-  rate: { idRate: string }[]
-}
-
-export const CardPostsProfileComponent = async ({ data }: { data: Post[] }) => {
+export const CardPostsProfileComponent = async ({
+  data,
+  query,
+  countPage,
+}: {
+  data: Post[]
+  query: number
+  countPage: number
+}) => {
   const dt = await ShowUser()
   const user: UserInterface = dt.data
+
   return (
     <>
       {data &&
@@ -71,8 +64,11 @@ export const CardPostsProfileComponent = async ({ data }: { data: Post[] }) => {
                         </span>{' '}
                         <span> {comment.lastName}</span>
                       </div>
-                      <div className="text-sm opacity-50">
+                      <div className="opacity-50 flex gap-2">
                         {FormatData(comment.created_at)}
+                        {user.idUser === comment.idUser && (
+                          <DropdownComment idComment={comment.idComment} />
+                        )}
                       </div>
                     </div>
                     <div className="text-wrap break-words text-justify">
@@ -87,6 +83,7 @@ export const CardPostsProfileComponent = async ({ data }: { data: Post[] }) => {
             </div>
           </div>
         ))}
+      <LinkPagination query={query} countPage={countPage} />
     </>
   )
 }

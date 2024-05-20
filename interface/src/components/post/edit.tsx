@@ -1,9 +1,11 @@
 'use client'
-import { Suspense, useState } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { FormEvent, Suspense, useState } from 'react'
+import { useFormStatus } from 'react-dom'
 import { Post } from '../dashboard/cardPost'
 import { UpdatePost } from '@/actions/post/updatePost'
 import Image from 'next/image'
+import { GoArrowLeft } from 'react-icons/go'
+import { useRouter } from 'next/navigation'
 
 function FormButton() {
   const { pending } = useFormStatus()
@@ -26,14 +28,19 @@ function FormButton() {
   )
 }
 
-export async function EditPostComponent({ post }: { post: Post }) {
+export async function EditPostComponent({ data }: { data: Post }) {
   const [img, setImg] = useState('')
+  const router = useRouter()
 
-  const [state, action] = useFormState(UpdatePost, {
-    ok: false,
-    error: '',
-    data: null,
-  })
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const formData = new FormData(e.currentTarget)
+    const req = await UpdatePost(formData)
+    if (req === 'success') {
+      alert('Alterado com sucesso!')
+    }
+  }
 
   function handleImgChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     if (target.files && target.files.length > 0)
@@ -41,17 +48,27 @@ export async function EditPostComponent({ post }: { post: Post }) {
   }
 
   return (
-    <div className="h-auto  rounded-lg">
-      <Suspense>
-        <form action={action}>
-          <input type="hidden" name="idPost" defaultValue={post.idPost} />
+    <Suspense>
+      <div className="my-auto rounded-lg p-4 flex flex-col justify-center">
+        <div
+          onClick={(e) => {
+            e.preventDefault()
+            router.back()
+          }}
+          className="flex items-center py-4 text-white"
+        >
+          <GoArrowLeft className="w-5 h-5" />
+          Voltar
+        </div>
+        <form onSubmit={handleSubmit}>
+          <input type="hidden" name="idPost" defaultValue={data.idPost} />
           <textarea
             name="description"
             id="(description)"
             className="w-[100%] bg-zinc-600 p-3 outline-none rounded-lg text-white"
             placeholder="Começar publicação..."
             rows={5}
-            defaultValue={post.description}
+            defaultValue={data.description}
           ></textarea>
           <div className="flex justify-between items-center">
             <input
@@ -69,19 +86,10 @@ export async function EditPostComponent({ post }: { post: Post }) {
             <FormButton />
           </div>
         </form>
-        {/* {img && ( */}
-        {post.imageUrlOne ||
-          (img && (
-            <Image
-              src={img}
-              alt="Imagem do post"
-              defaultValue={post.imageUrlOne}
-              width={100}
-              height={100}
-            />
-          ))}
-        <p className="text-red-600 text-sm">{state.error}</p>
-      </Suspense>
-    </div>
+        {img && (
+          <Image src={img} alt="Imagem do post" width={100} height={100} />
+        )}
+      </div>
+    </Suspense>
   )
 }
