@@ -15,7 +15,7 @@ class PostService
     public function index()
     {
         try {
-            $post = Posts::with('comments')->with('rates')->whereNull("posts.deleted_at")->latest('posts.updated_at')->get();
+            $post = Posts::with('comments')->with('rates')->whereNull("posts.deleted_at")->latest('posts.updated_at')->paginate(100);
             return PostResource::collection($post);
         } catch (Exception $th) {
             throw new PostException('Error to list post');
@@ -49,7 +49,9 @@ class PostService
     public function showUser()
     {
         try {
-            $show = auth()->user()->posts()->with('comments')->with('rates')->whereNull("posts.deleted_at")->get();
+            $show = auth()->user()->posts()->with(['comments' => function ($query) {
+                $query->whereNull("comments.deleted_at");
+            }])->with('rates')->whereNull("posts.deleted_at")->paginate(100);
             return PostResource::collection($show);
         } catch (Exception $th) {
             throw new PostException('Error creating post');
@@ -59,7 +61,7 @@ class PostService
     public function showPostUser(string $idUser)
     {
         try {
-            $post = Posts::where('posts.user_idUser','=', $idUser)->with('comments')->with('rates')->whereNull("posts.deleted_at")->orderBy('posts.updated_at', 'DESC')->get();
+            $post = Posts::where('posts.user_idUser', '=', $idUser)->with('comments')->with('rates')->whereNull("posts.deleted_at")->orderBy('posts.updated_at', 'DESC')->paginate(100);
             return PostResource::collection($post);
         } catch (Exception $th) {
             throw new PostException('Error creating post');
@@ -75,7 +77,7 @@ class PostService
                     $newName_image = date("H-i-s-d-m-Y.") . $image->getClientOriginalExtension();
                     Storage::disk('public')->put('img/' . $newName_image, file_get_contents($image));
                     $data['imageUrlOne'] = $newName_image;
-                }
+                } 
             } else {
                 $data['imageUrlOne'] = null;
             }
@@ -87,7 +89,7 @@ class PostService
             if (!$post) {
                 return new GeneralResource(["message" => "Unathorized"]);
             }
-            
+
             $post->update($data);
 
             return new GeneralResource(['message' => 'success']);
