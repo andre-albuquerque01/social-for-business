@@ -57,12 +57,13 @@ class CommentService
     public function destroy(string $id)
     {
         try {
-            $var = auth()->user()->comments()->find($id, "idComment")->first();
+            $user = auth()->user()->idUser;
+            $var = Comments::where('idComment', $id)->where('user_idUser', $user)->first();
             if (!$var) {
                 return new GeneralResource(["message" => "Unathorized"]);
             }
 
-            $var = $var->delete();
+            $var->touch('deleted_at'); 
             return new GeneralResource(['message' => 'success']);
         } catch (\Throwable $e) {
             throw new CommentException("Error destroying");
