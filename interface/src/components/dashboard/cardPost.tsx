@@ -4,6 +4,8 @@ import { FormatData } from '@/functions/formatData'
 import Link from 'next/link'
 import { DropdownPost } from '../other/dropdownPost'
 import { ShowUser, UserInterface } from '@/actions/user/show'
+import LinkPagination from '../other/LinkPagination'
+import { DropdownComment } from '../other/dropdownComment'
 
 export interface Post {
   idPost: string
@@ -14,6 +16,7 @@ export interface Post {
   firstName: string
   lastName: string
   comments: {
+    idUser: string
     firstName: string
     lastName: string
     idComment: string
@@ -24,7 +27,15 @@ export interface Post {
   rate: { idRate: string }[]
 }
 
-export const CardPostsComponent = async ({ data }: { data: Post[] }) => {
+export const CardPostsComponent = async ({
+  data,
+  query,
+  countPage,
+}: {
+  data: Post[]
+  query: number
+  countPage: number
+}) => {
   const dt = await ShowUser()
   const user: UserInterface = dt.data
   return (
@@ -71,8 +82,11 @@ export const CardPostsComponent = async ({ data }: { data: Post[] }) => {
                         </span>{' '}
                         <span> {comment.lastName}</span>
                       </div>
-                      <div className="text-sm opacity-50">
+                      <div className="opacity-50 flex gap-2">
                         {FormatData(comment.created_at)}
+                        {user.idUser === comment.idUser && (
+                          <DropdownComment idComment={comment.idComment} />
+                        )}
                       </div>
                     </div>
                     <div className="text-wrap break-words text-justify">
@@ -87,6 +101,7 @@ export const CardPostsComponent = async ({ data }: { data: Post[] }) => {
             </div>
           </div>
         ))}
+      <LinkPagination query={query} countPage={countPage} />
     </>
   )
 }

@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { SlOptions } from 'react-icons/sl'
+import { DeletePostComponent } from '../post/deletePost'
 
 export const DropdownPost = ({ idPost }: { idPost: string }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,9 +25,7 @@ export const DropdownPost = ({ idPost }: { idPost: string }) => {
             <li className="py-2 px-4 hover:bg-zinc-800 cursor-pointer rounded">
               <Link href={`/post/${idPost}`}>Editar</Link>
             </li>
-            <li className="py-2 px-4 hover:bg-zinc-800 cursor-pointer rounded">
-              <Link href="/user/profile">Remove</Link>
-            </li>
+            <DeletePostComponent idPost={idPost} />
           </ul>
         </div>
       )}
