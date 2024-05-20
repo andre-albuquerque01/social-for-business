@@ -5,22 +5,18 @@ import ApiAction from '@/functions/data/apiAction'
 import { RevalidateTag } from '@/functions/revalidateTag'
 import { cookies } from 'next/headers'
 
-export async function UpdatePost(
-  state: { ok: boolean; error: string; data: null },
-  request: FormData,
-) {
-  const idPost = request.get('idPost') as string | null
-  const description = request.get('description') as string | null
-  try {
-    if (!idPost || !description) throw new Error('Post invalido.')
+export async function UpdatePost(request: object, idPost: string) {
+  console.log(request)
 
+  try {
     const response = await ApiAction(`/post/update/${idPost}`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
         Authorization: 'Bearer ' + cookies().get('token')?.value,
+        'Content-Type': 'application/json',
       },
-      body: request,
+      body: JSON.stringify(request),
     })
 
     RevalidateTag('post')
@@ -28,7 +24,7 @@ export async function UpdatePost(
     const data = await response.json()
     console.log(data)
 
-    return { data: null, error: '', ok: true }
+    return 'success'
   } catch (error) {
     return apiError(error)
   }
