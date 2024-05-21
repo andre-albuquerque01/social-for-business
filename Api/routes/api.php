@@ -30,16 +30,17 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->prefix('post')->group(function () {
         Route::apiResource('', PostController::class);
         Route::get('/user', [PostController::class, 'showUser']);
+        Route::get('/delete/{id}', [PostController::class, 'destroy']);
         Route::get('/show/{id}', [PostController::class, 'show']);
         Route::get('/showUser/{id}', [PostController::class, 'showPostUser']);
-        Route::put('/update/{id}', [PostController::class, 'update']);
+        Route::post('/update/{id}', [PostController::class, 'update']);
     });
 
     Route::middleware('auth:api')->prefix('comment')->group(function () {
         // Route::apiResource('', CommentController::class);
         Route::post('', [CommentController::class, 'store']);
         Route::put('/{id}', [CommentController::class, 'update']);
-        Route::delete('/{id}', [CommentController::class, 'destroy']);
+        Route::get('/delete/{id}', [CommentController::class, 'destroy']);
         Route::get('/{id}', [CommentController::class, 'show']);
     });
 
