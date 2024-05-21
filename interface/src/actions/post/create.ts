@@ -36,6 +36,12 @@ export async function CreatePostAction(
     )
       throw new Error('Descrição precisar ter no mínimo 10 caracteres.')
 
+    if (
+      data.message ===
+      'The description field must not be greater than 255 characters.'
+    )
+      throw new Error('Descrição pode ter no máximo 255 caracteres.')
+
     return { data: null, error: '', ok: true }
   } catch (error) {
     return apiError(error)
