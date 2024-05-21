@@ -5,24 +5,20 @@ import ApiAction from '@/functions/data/apiAction'
 import { RevalidateTag } from '@/functions/revalidateTag'
 import { cookies } from 'next/headers'
 
-export async function UpdatePost(request: object, idPost: string) {
+export async function UpdatePost(request: FormData, idPost: string) {
   console.log(request)
 
   try {
-    const response = await ApiAction(`/post/update/${idPost}`, {
-      method: 'PUT',
+    await ApiAction(`/post/update/${idPost}`, {
+      method: 'POST',
       headers: {
         Accept: 'application/json',
         Authorization: 'Bearer ' + cookies().get('token')?.value,
-        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(request),
+      body: request,
     })
 
     RevalidateTag('post')
-
-    const data = await response.json()
-    console.log(data)
 
     return 'success'
   } catch (error) {
