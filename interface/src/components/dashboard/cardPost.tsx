@@ -61,12 +61,12 @@ export const CardPostsComponent = async ({
               <p>{post.description}</p>
               {post.imageUrlOne && (
                 <Image
-                  // src={`/mnt/069E34C19E34AB57/SocialMidia/Api/storage/app/public/img/${post.imageUrlOne}`}
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5sBJBIfQ8eG49ACgcJGpIfiGBXksA_-CayA&usqp=CAU"
+                  src={`/mnt/069E34C19E34AB57/SocialMidia/Api/storage/app/public/img/${post.imageUrlOne}`}
+                  // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5sBJBIfQ8eG49ACgcJGpIfiGBXksA_-CayA&usqp=CAU"
                   alt="Image post"
                   width={550}
                   height={550}
-                  className="object-scale-down mx-auto w-80 h-80"
+                  className="object-scale-down mx-auto w-80 h-80 p-4"
                 />
               )}
             </div>
