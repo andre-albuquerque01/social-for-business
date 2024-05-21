@@ -17,5 +17,5 @@ export async function DeletePostAction(idPost: string) {
     console.log(error)
   }
 
-  RevalidateTag('posts')
+  RevalidateTag('post')
 }
