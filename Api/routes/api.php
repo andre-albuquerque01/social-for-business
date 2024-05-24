@@ -24,6 +24,7 @@ Route::prefix('v1')->group(function () {
         Route::put('update', [UserController::class, 'update']);
         Route::get('', [UserController::class, 'delete']);
         Route::get('show', [UserController::class, 'show']);
+        Route::get('/showOneUser/{id}', [UserController::class, 'showOneUser']);
     });
 
 
