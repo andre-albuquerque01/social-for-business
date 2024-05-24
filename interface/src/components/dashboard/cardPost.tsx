@@ -37,10 +37,11 @@ export const CardPostsComponent = async ({
   countPage: number
 }) => {
   const dt = await ShowUser()
-  const user: UserInterface = dt.data
+  const user: UserInterface = dt?.data
   return (
     <>
-      {data &&
+      {data.length > 0 &&
+        data &&
         data.map((post) => (
           <div className="bg-zinc-800 min-h-32 p-6 " key={post.idPost}>
             <div className="flex justify-between items-center">
@@ -76,12 +77,14 @@ export const CardPostsComponent = async ({
                 {post.comments.map((comment) => (
                   <div key={comment.idComment} className="p-3">
                     <div className="flex justify-between items-center">
-                      <div>
-                        <span className="uppercase font-bold">
-                          {comment.firstName}
-                        </span>{' '}
-                        <span> {comment.lastName}</span>
-                      </div>
+                      {comment.idUser && (
+                        <Link href={`/user/profile/${comment.idUser}`}>
+                          <span className="uppercase font-bold">
+                            {comment.firstName}
+                          </span>{' '}
+                          <span> {comment.lastName}</span>
+                        </Link>
+                      )}
                       <div className="opacity-50 flex gap-2">
                         {FormatData(comment.created_at)}
                         {user.idUser === comment.idUser && (
