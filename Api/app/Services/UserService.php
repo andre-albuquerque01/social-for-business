@@ -8,6 +8,7 @@ use App\Exceptions\AuthException;
 use App\Exceptions\UserUpdateException;
 use App\Http\Resources\GeneralResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserResource2;
 use App\Models\PasswordResetTokens;
 use App\Models\User;
 use Exception;
@@ -45,6 +46,15 @@ class UserService
             return new GeneralResource(['message' => 'success']);
         } catch (Exception $e) {
             throw new UserUpdateException("Error creating user");
+        }
+    }
+
+    public function showOneUser(string $id){
+        try {
+            $user = User::findOrFail($id);
+            return new UserResource2($user);
+        } catch (Exception $e) {
+            throw new UserUpdateException("Error show user");
         }
     }
 

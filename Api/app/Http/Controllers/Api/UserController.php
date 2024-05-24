@@ -30,6 +30,11 @@ class UserController extends Controller
         return new UserResource2($user);
     }
 
+    public function showOneUser(string $id)
+    {
+        return $this->userService->showOneUser($id);
+    }
+
     public function update(UserStoreRequest $data)
     {
         return $this->userService->update($data->validated());
