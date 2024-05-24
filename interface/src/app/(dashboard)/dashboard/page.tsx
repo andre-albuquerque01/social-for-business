@@ -16,6 +16,7 @@ export default async function Dashboard({ searchParams }: SearchParamsProps) {
   if (page === undefined) page = 1
 
   const dt = await ShowPost(page)
+
   const data = dt?.data
   const count = dt?.countPage
 
@@ -26,7 +27,9 @@ export default async function Dashboard({ searchParams }: SearchParamsProps) {
       </div>
       <div className="space-y-4 md:w-[75%] md:max-w-full">
         <CreatePost />
-        <CardPostsComponent data={data} query={page} countPage={count} />
+        {dt && (
+          <CardPostsComponent data={data} query={page} countPage={count} />
+        )}
       </div>
     </div>
   )
