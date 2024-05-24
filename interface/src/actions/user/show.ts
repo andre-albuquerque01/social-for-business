@@ -14,7 +14,7 @@ export async function ShowUser() {
   try {
     const response = await ApiAction('/users/show', {
       headers: {
-        'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: 'Bearer' + cookies().get('token')?.value,
       },
       // next: {
