@@ -3,6 +3,7 @@ import { CreatePostAction } from '@/actions/post/create'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
+import { GoX } from 'react-icons/go'
 
 function FormButton() {
   const { pending } = useFormStatus()
@@ -64,18 +65,26 @@ export const CreatePost = () => {
           onChange={handleDescriptionChange}
         ></textarea>
         <div className="flex justify-between items-center">
-          <input
-            type="file"
-            name="imageUrlOne"
-            id="imageUrlOne"
-            className="text-sm text-stone-500
+          <div className="flex items-center">
+            <input
+              type="file"
+              name="imageUrlOne"
+              id="imageUrlOne"
+              className="text-sm text-stone-500
             file:mr-5 file:py-1 file:px-3 file:border-[1px]
             file:text-xs file:font-medium
             file:bg-stone-50 file:text-stone-700
             hover:file:cursor-pointer hover:file:bg-blue-50
             hover:file:text-blue-700"
-            onChange={handleImgChange}
-          />
+              onChange={handleImgChange}
+            />
+            {img && (
+              <GoX
+                className="h-5 w-5 cursor-pointer"
+                onClick={() => setImg('')}
+              />
+            )}
+          </div>
           <FormButton />
         </div>
       </form>
