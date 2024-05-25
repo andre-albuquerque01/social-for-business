@@ -62,8 +62,7 @@ export const CardPostsComponent = async ({
               <p>{post.description}</p>
               {post.imageUrlOne && (
                 <Image
-                  src={`/mnt/069E34C19E34AB57/SocialMidia/Api/storage/app/public/img/${post.imageUrlOne}`}
-                  // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5sBJBIfQ8eG49ACgcJGpIfiGBXksA_-CayA&usqp=CAU"
+                  src={`http://localhost/storage/img/${post.imageUrlOne}`}
                   alt="Image post"
                   width={550}
                   height={550}
