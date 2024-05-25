@@ -16,6 +16,6 @@ export async function DeleteCommentAction(idComment: string) {
   } catch (error) {
     console.log(error)
   }
-
   RevalidateTag('userPost')
+  RevalidateTag('post')
 }

@@ -17,11 +17,10 @@ export async function ShowUser() {
         Accept: 'application/json',
         Authorization: 'Bearer' + cookies().get('token')?.value,
       },
-      // next: {
-      //   revalidate: 60 * 30,
-      //   tags: ['user'],
-      // },
-      cache: 'no-cache',
+      next: {
+        revalidate: 60 * 30,
+        tags: ['user'],
+      },
     })
     const data = await response.json()
 

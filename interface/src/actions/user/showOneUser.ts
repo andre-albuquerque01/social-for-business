@@ -18,7 +18,10 @@ export async function ShowOneUser(idUser: string) {
         Accept: 'application/json',
         Authorization: 'Bearer' + cookies().get('token')?.value,
       },
-      cache: 'no-cache',
+      next: {
+        revalidate: 60 * 30,
+        tags: ['user'],
+      },
     })
     const data = await response.json()
 
