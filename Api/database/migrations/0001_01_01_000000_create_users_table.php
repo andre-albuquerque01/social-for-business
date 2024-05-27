@@ -15,6 +15,8 @@ return new class extends Migration
             $table->uuid("idUser")->primary();
             $table->string('firstName');
             $table->string('lastName');
+            $table->string('profileUrl')->default(null)->nullable();
+            $table->string('coverPhotoUrl')->default(null)->nullable();
             $table->boolean('term_aceite');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -22,16 +24,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps('deleted_at');
             $table->timestamps();
-        });
-
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignUuid('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
         });
     }
 
@@ -41,6 +33,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('sessions');
     }
 };

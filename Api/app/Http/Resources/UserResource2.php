@@ -19,6 +19,8 @@ class UserResource2 extends JsonResource
             'idUser' => $this->idUser,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
+            'profileUrl' => $this->profileUrl,
+            'coverPhotoUrl' => $this->coverPhotoUrl,
             'email' => $this->email,
         ];
     }

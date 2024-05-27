@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UserService
@@ -40,6 +41,25 @@ class UserService
     public function store(array $data)
     {
         try {
+            if (isset($data['profileUrl']) || isset($data['overPhotoUrl'])) {
+                $image = $data['profileUrl'];
+                if ($image->getClientOriginalExtension() != null) {
+                    $newName_image = uniqid() . "." . $image->getClientOriginalExtension();
+                    Storage::disk('public')->put('img/user/' . $newName_image, file_get_contents($image));
+                    $data['profileUrl'] = $newName_image;
+                } else {
+                    $data['profileUrl'] = null;
+                }
+                $overProfile = $data['coverPhotoUrl'];
+                if ($overProfile->getClientOriginalExtension() != null) {
+                    $newName_overProfile = uniqid() . "." . $overProfile->getClientOriginalExtension();
+                    Storage::disk('public')->put('img/user/' . $newName_overProfile, file_get_contents($overProfile));
+                    $data['coverPhotoUrl'] = $newName_overProfile;
+                } else {
+                    $data['coverPhotoUrl'] = null;
+                }
+            }
+            
             $data['password'] = Hash::make($data['password']);
             User::create($data);
             event(new UserEmailVerification($data['email']));
@@ -49,7 +69,8 @@ class UserService
         }
     }
 
-    public function showOneUser(string $id){
+    public function showOneUser(string $id)
+    {
         try {
             $user = User::findOrFail($id);
             return new UserResource2($user);

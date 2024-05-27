@@ -27,6 +27,8 @@ class UserStoreRequest extends FormRequest
             "firstName" => "required|min:3|max:60|regex:/^[^<>]*$/",
             "lastName" => "required|min:3|max:60|regex:/^[^<>]*$/",
             "term_aceite" => "required|regex:/^[^<>]*$/",
+            'profileUrl' => 'nullable|image|mimes:jpeg,png,gif,jpg|max:2048',
+            'coverPhotoUrl' => 'nullable|image|mimes:jpeg,png,gif,jpg|max:2048',
             "email" => [
                 "required",
                 "email",
