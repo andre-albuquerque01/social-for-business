@@ -12,7 +12,7 @@ export function FormatData(dataISO: string): string {
     const hora = padLeft(data.getHours())
     const minuto = padLeft(data.getMinutes())
 
-    return `${hora}:${minuto} - ${dia}/${mes}/${ano}`
+    return `${hora}:${minuto} - ${dia}/${mes}`
   }
   return ''
 }
