@@ -4,6 +4,9 @@ import { ButtonComponent } from '@/components/form/button'
 import { InputComponent } from '@/components/form/input'
 import Link from 'next/link'
 import { useFormState, useFormStatus } from 'react-dom'
+import { useState } from 'react'
+import Image from 'next/image'
+import { GoX } from 'react-icons/go'
 
 function FormButton() {
   const { pending } = useFormStatus()
@@ -31,9 +34,84 @@ export const InsertUserComponent = () => {
     data: null,
   })
 
+  const [profilePreview, setProfilePreview] = useState('')
+  const [coverPreview, setCoverPreview] = useState('')
+
+  function handleProfileChange({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) {
+    if (target.files && target.files.length > 0)
+      setProfilePreview(URL.createObjectURL(target.files[0]))
+  }
+
+  function handleCoverChange({ target }: React.ChangeEvent<HTMLInputElement>) {
+    if (target.files && target.files.length > 0)
+      setCoverPreview(URL.createObjectURL(target.files[0]))
+  }
+
   return (
     <form className="space-y-5 flex flex-col text-white" action={action}>
       <Link href="/">{'<- Voltar'}</Link>
+      <div className="mx-auto w-96 space-y-5">
+        <div>
+          <label htmlFor="profileUrl">Imagem de perfil:</label>
+          <div className="flex items-center justify-between">
+            <input
+              type="file"
+              name="profileUrl"
+              id="profileUrl"
+              className="text-sm text-stone-500
+          file:mr-5 file:py-1 file:px-3 file:border-[1px]
+          file:text-xs file:font-medium
+          file:bg-stone-50 file:text-stone-700
+          hover:file:cursor-pointer hover:file:bg-blue-50
+          hover:file:text-blue-700"
+              onChange={handleProfileChange}
+            />
+            {profilePreview && (
+              <GoX
+                className="h-5 w-5 cursor-pointer"
+                onClick={() => setProfilePreview('')}
+              />
+            )}
+          </div>
+          {profilePreview && (
+            <Image
+              src={profilePreview}
+              width={100}
+              height={100}
+              alt="Profile Preview"
+              className="preview"
+            />
+          )}
+        </div>
+        <div>
+          <label htmlFor="coverPhotoUrl">Imagem de capa</label>
+          <div>
+            <input
+              type="file"
+              name="coverPhotoUrl"
+              id="coverPhotoUrl"
+              className="text-sm text-stone-500
+            file:mr-5 file:py-1 file:px-3 file:border-[1px]
+          file:text-xs file:font-medium
+          file:bg-stone-50 file:text-stone-700
+          hover:file:cursor-pointer hover:file:bg-blue-50
+          hover:file:text-blue-700"
+              onChange={handleCoverChange}
+            />
+          </div>
+          {coverPreview && (
+            <Image
+              src={coverPreview}
+              width={100}
+              height={100}
+              alt="Cover Preview"
+              className="preview"
+            />
+          )}
+        </div>
+      </div>
       <InputComponent
         type="text"
         label="Nome"
