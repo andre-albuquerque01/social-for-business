@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 export default async function Layout({ children }: { children: ReactNode }) {
   const cookiesStore = cookies()
-  const token = cookiesStore.get('token')!.value
+  const token = cookiesStore.get('token')?.value
   const verify = await verifyToken(token)
   if (verify) redirect('/dashboard')
   return <div className="mx-auto h-screen max-w-[1200px]">{children}</div>
