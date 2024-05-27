@@ -35,7 +35,7 @@ class PostService
                 $image = $data['imageUrlOne'];
                 if ($image->getClientOriginalExtension() != null) {
                     $newName_image = uniqid() . "." . $image->getClientOriginalExtension();
-                    Storage::disk('public')->put('img/' . $newName_image, file_get_contents($image));
+                    Storage::disk('public')->put('img/post/' . $newName_image, file_get_contents($image));
                     $data['imageUrlOne'] = $newName_image;
                 } else {
                     $data['imageUrlOne'] = null;
@@ -99,7 +99,7 @@ class PostService
                 $image = $data['imageUrlOne'];
                 if ($image->getClientOriginalExtension() != null) {
                     $newName_image = uniqid() . "." . $image->getClientOriginalExtension();
-                    Storage::disk('public')->put('img/' . $newName_image, file_get_contents($image));
+                    Storage::disk('public')->put('img/post/' . $newName_image, file_get_contents($image));
                     $data['imageUrlOne'] = $newName_image;
                 } else {
                     $data['imageUrlOne'] = $post->imageUrlOne;
