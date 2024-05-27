@@ -3,6 +3,7 @@
 import apiError from '@/functions/api-error'
 import ApiAction from '@/functions/data/apiAction'
 import VerificationPassword from '@/functions/verify-password'
+import { redirect } from 'next/navigation'
 
 export async function InsertUser(
   state: { ok: boolean; error: string; data: null },
@@ -48,8 +49,9 @@ export async function InsertUser(
     if (data.message === 'The email has already been taken.')
       throw new Error('E-mail já cadastrado!')
 
-    return { data: null, error: '', ok: true }
+    // return { data: null, error: '', ok: true }
   } catch (error) {
     return apiError(error)
   }
+  redirect('/')
 }

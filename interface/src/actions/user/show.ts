@@ -7,6 +7,8 @@ export interface UserInterface {
   idUser: string
   firstName: string
   lastName: string
+  profileUrl: string
+  coverPhotoUrl: string
   email: string
 }
 
