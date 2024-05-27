@@ -26,11 +26,39 @@ export const CardPostsProfileComponent = async ({
         data.map((post) => (
           <div className="bg-zinc-800 min-h-32 p-6 " key={post.idPost}>
             <div className="flex justify-between items-center">
-              <div className="">
-                <Link href={`/user/profile/${post.idUser}`}>
-                  <span className="uppercase font-bold">{post.firstName}</span>{' '}
-                  <span> {post.lastName}</span>
-                </Link>
+              <div className="flex items-center gap-4">
+                {user.idUser === post.idUser && post?.profileUrl ? (
+                  <Image
+                    src={`http://localhost/storage/img/user/${post?.profileUrl}`}
+                    alt="Perfil"
+                    width={30}
+                    height={30}
+                    className="rounded-lg"
+                  />
+                ) : (
+                  <Image
+                    src={`/user.png`}
+                    alt="Perfil"
+                    width={30}
+                    height={30}
+                    className="rounded-lg"
+                  />
+                )}
+                {user.idUser === post.idUser ? (
+                  <Link href={`/user/profile`}>
+                    <span className="uppercase font-bold">
+                      {post.firstName}
+                    </span>{' '}
+                    <span> {post.lastName}</span>
+                  </Link>
+                ) : (
+                  <Link href={`/user/profile/${post.idUser}`}>
+                    <span className="uppercase font-bold">
+                      {post.firstName}
+                    </span>{' '}
+                    <span> {post.lastName}</span>
+                  </Link>
+                )}
               </div>
               <div className="opacity-50 flex gap-2">
                 {FormatData(post.created_at)}
@@ -43,7 +71,7 @@ export const CardPostsProfileComponent = async ({
               <p>{post.description}</p>
               {post.imageUrlOne && (
                 <Image
-                  src={`http://localhost/storage/img/${post.imageUrlOne}`}
+                  src={`http://localhost/storage/img/post/${post.imageUrlOne}`}
                   alt="Image post"
                   width={550}
                   height={550}
@@ -57,14 +85,34 @@ export const CardPostsProfileComponent = async ({
                 {post.comments.map((comment) => (
                   <div key={comment.idComment} className="p-3">
                     <div className="flex justify-between items-center">
-                      {comment.idUser && (
-                        <Link href={`/user/profile/${comment.idUser}`}>
-                          <span className="uppercase font-bold">
-                            {comment.firstName}
-                          </span>{' '}
-                          <span> {comment.lastName}</span>
-                        </Link>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {user.idUser === comment.idUser &&
+                        comment?.profileUrl ? (
+                          <Image
+                            src={`http://localhost/storage/img/user/${comment?.profileUrl}`}
+                            alt="Perfil"
+                            width={30}
+                            height={30}
+                            className="rounded-lg"
+                          />
+                        ) : (
+                          <Image
+                            src={`/user.png`}
+                            alt="Perfil"
+                            width={30}
+                            height={30}
+                            className="rounded-lg"
+                          />
+                        )}
+                        {comment.idUser && (
+                          <Link href={`/user/profile/${comment.idUser}`}>
+                            <span className="uppercase font-bold">
+                              {comment.firstName}
+                            </span>{' '}
+                            <span> {comment.lastName}</span>
+                          </Link>
+                        )}
+                      </div>
                       <div className="opacity-50 flex gap-2">
                         {FormatData(comment.created_at)}
                         {user.idUser === comment.idUser && (
