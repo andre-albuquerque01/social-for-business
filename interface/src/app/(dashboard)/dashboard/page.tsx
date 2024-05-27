@@ -1,7 +1,7 @@
 import { ShowPost } from '@/actions/post/show'
 import { CardPostsComponent } from '@/components/dashboard/cardPost'
 import { CardUserComponent } from '@/components/dashboard/cardUser'
-import { CreatePost } from '@/components/dashboard/createPost'
+import { CreatePost } from '@/components/post/createPost'
 
 export const runtime = 'edge'
 

@@ -29,6 +29,8 @@ export default async function Profile({ params, searchParams }: PropsParams) {
         <CardOneUserComponent
           firstName={userData.firstName}
           lastName={userData.lastName}
+          profileUrl={userData.profileUrl}
+          coverPhotoUrl={userData.coverPhotoUrl}
         />
       </div>
       <div className="space-y-4 md:w-[75%] md:max-w-full">
