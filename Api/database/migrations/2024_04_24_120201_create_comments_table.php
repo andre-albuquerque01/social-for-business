@@ -18,8 +18,8 @@ return new class extends Migration
             $table->index('post_idPost');
             $table->foreignUuid('post_idPost')->references('idPost')->on('posts')->onDelete('cascade')->onUpdate('cascade');
             $table->string('comment');
-            $table->timestamps('deleted_at');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
