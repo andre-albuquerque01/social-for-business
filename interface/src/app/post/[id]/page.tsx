@@ -103,7 +103,22 @@ export default function EditPost({ params }: { params: { id: string } }) {
         </form>
         <p className="text-xs text-red-600 py-3">{state.error}</p>
         {img && (
-          <Image src={img} alt="Imagem do post" width={100} height={100} />
+          <>
+            <p className="py-2 text-white">Imagem adicionada</p>
+            <Image src={img} alt="Imagem do post" width={100} height={100} />
+          </>
+        )}
+        {data?.imageUrlOne && (
+          <>
+            <p className="py-2 text-white">Imagem atual</p>
+            <Image
+              src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/post/${data.imageUrlOne}`}
+              alt="Image post"
+              width={100}
+              height={100}
+              className="w-52 h-auto"
+            />
+          </>
         )}
       </div>
     </Suspense>
