@@ -26,7 +26,7 @@ export async function ShowUser() {
     })
     const data = await response.json()
 
-    return data
+    return data.data
   } catch (err) {
     console.log(err)
   }

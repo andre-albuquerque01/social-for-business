@@ -20,7 +20,7 @@ export async function Login(
     const response = await ApiAction('/user/login', {
       method: 'POST',
       headers: {
-        // 'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: request,
     })
@@ -30,6 +30,12 @@ export async function Login(
     if (data.data && data.data.message === 'E-mail não verificado') {
       throw new Error('E-mail não verificado!')
     }
+    if (
+      data.data &&
+      data.data.message === 'Cannot use empty array elements in arrays'
+    ) {
+      throw new Error('E-mail ou senha invalida!')
+    }
 
     cookiesStore.set('token', data.access_token, {
       expires: Date.now() + 2 * 60 * 60 * 1000,
@@ -38,7 +44,7 @@ export async function Login(
       sameSite: 'strict',
     })
 
-    if (!response.ok) throw new Error('Senha ou usuário inválido!')
+    if (!response.ok) throw new Error('Usuário ou senha inválido!')
   } catch (error) {
     return apiError(error)
   }
