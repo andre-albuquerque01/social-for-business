@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('description');
             $table->index('user_idUser');
             $table->foreignUuid('user_idUser')->references('idUser')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps('deleted_at');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
