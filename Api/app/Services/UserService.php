@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Events\RecoverPassword;
-use App\Events\UserEmailVerification;
 use App\Exceptions\AuthException;
 use App\Exceptions\UserUpdateException;
 use App\Http\Resources\GeneralResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResource2;
+use App\Jobs\RecoverPasswordJob;
+use App\Jobs\SendEmail;
 use App\Models\PasswordResetTokens;
 use App\Models\User;
 use Exception;
@@ -59,10 +59,10 @@ class UserService
                     $data['coverPhotoUrl'] = null;
                 }
             }
-            
+
             $data['password'] = Hash::make($data['password']);
             User::create($data);
-            event(new UserEmailVerification($data['email']));
+            dispatch(new SendEmail($data['email']));
             return new GeneralResource(['message' => 'success']);
         } catch (Exception $e) {
             throw new UserUpdateException("Error creating user");
@@ -121,7 +121,7 @@ class UserService
                 return new GeneralResource(['message' => 'User not found']);
             }
 
-            event(new UserEmailVerification($data['email']));
+            dispatch(new SendEmail($data['email']));
             return new GeneralResource(['message' => 'Send email']);
         } catch (Exception $e) {
             throw new UserUpdateException("Error to resend email");
@@ -157,8 +157,7 @@ class UserService
                 PasswordResetTokens::create($data);
             }
 
-
-            event(new RecoverPassword($email, $token));
+            dispatch(new RecoverPasswordJob($email, $token));
 
             return new GeneralResource(['message' => 'Send email']);
         } catch (Exception $e) {
