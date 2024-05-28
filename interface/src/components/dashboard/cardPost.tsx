@@ -50,7 +50,7 @@ export const CardPostsComponent = async ({
               <div className="flex items-center gap-4">
                 {user.idUser === post.idUser && post?.profileUrl ? (
                   <Image
-                    src={`http://localhost/storage/img/user/${post?.profileUrl}`}
+                    src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/user/${post?.profileUrl}`}
                     alt="Perfil"
                     width={30}
                     height={30}
@@ -92,11 +92,11 @@ export const CardPostsComponent = async ({
               <p>{post.description}</p>
               {post.imageUrlOne && (
                 <Image
-                  src={`http://localhost/storage/img/post/${post.imageUrlOne}`}
+                  src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/post/${post.imageUrlOne}`}
                   alt="Image post"
                   width={550}
                   height={550}
-                  className="object-scale-down mx-auto w-80 h-80 p-4"
+                  className="object-scale-down mx-auto max-w-96 max-h-96 p-4 max-md:max-w-80 max-md:max-h-80"
                 />
               )}
             </div>
@@ -110,7 +110,7 @@ export const CardPostsComponent = async ({
                         {user.idUser === comment.idUser &&
                         comment?.profileUrl ? (
                           <Image
-                            src={`http://localhost/storage/img/user/${comment?.profileUrl}`}
+                            src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/user/${comment?.profileUrl}`}
                             alt="Perfil"
                             width={30}
                             height={30}

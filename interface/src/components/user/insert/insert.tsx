@@ -52,7 +52,7 @@ export const InsertUserComponent = () => {
   return (
     <form className="space-y-5 flex flex-col text-white" action={action}>
       <Link href="/">{'<- Voltar'}</Link>
-      <div className="mx-auto w-96 space-y-5">
+      <div className="mx-auto md:w-96 max-md:w-80 space-y-5">
         <div>
           <label htmlFor="profileUrl">Imagem de perfil:</label>
           <div className="flex items-center justify-between">

@@ -16,7 +16,7 @@ export const CardUserComponent = async () => {
       <div className="overflow-hidden">
         {data.coverPhotoUrl ? (
           <Image
-            src={`http://localhost/storage/img/user/${data.coverPhotoUrl}`}
+            src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/user/${data.coverPhotoUrl}`}
             alt="Capa"
             width={300}
             height={100}
@@ -34,7 +34,7 @@ export const CardUserComponent = async () => {
         <div className="transform mx-auto mt-[-40px] w-20 h-20 border-2 p-0.5 rounded-lg border-cyan-300">
           {data?.profileUrl ? (
             <Image
-              src={`http://localhost/storage/img/user/${data?.profileUrl}`}
+              src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/user/${data?.profileUrl}`}
               alt="Perfil"
               width={80}
               height={80}
