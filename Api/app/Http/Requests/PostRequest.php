@@ -22,7 +22,7 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'imageUrlOne' => 'nullable',
+            'imageUrlOne' => 'nullable|image|mimes:jpeg,png,gif,jpg|max:2048',
             'description' => 'required|string|regex:/^[^<>]*$/|min:10|max:255',
         ];
 
