@@ -21,7 +21,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:api')->prefix('users')->group(function () {
-        Route::put('update', [UserController::class, 'update']);
+        Route::post('update', [UserController::class, 'update']);
         Route::get('', [UserController::class, 'delete']);
         Route::get('show', [UserController::class, 'show']);
         Route::get('/showOneUser/{id}', [UserController::class, 'showOneUser']);
