@@ -27,14 +27,14 @@ class UserService
                 return new GeneralResource(['message' => 'E-mail não verificado']);
             }
             if (!$token = auth()->attempt($data)) {
-                throw new AuthException();
+                throw new AuthException("Email or password incorrect");
             }
 
             return [
                 'access_token' => $token
             ];
         } catch (UserUpdateException $e) {
-            throw new AuthException();
+            throw new AuthException("Email not registered");
         }
     }
 
@@ -83,6 +83,33 @@ class UserService
     {
         try {
             $user = auth()->user();
+
+            if (isset($data['profileUrl']) || isset($data['overPhotoUrl'])) {
+                $image = $data['profileUrl'];
+                if ($image->getClientOriginalExtension() != null) {
+                    $newName_image = uniqid() . "." . $image->getClientOriginalExtension();
+                    Storage::disk('public')->put('img/user/' . $newName_image, file_get_contents($image));
+                    $data['profileUrl'] = $newName_image;
+                } else {
+                    $data['profileUrl'] = auth()->user()->profileUrl;
+                }
+                $overProfile = $data['coverPhotoUrl'];
+                if ($overProfile->getClientOriginalExtension() != null) {
+                    $newName_overProfile = uniqid() . "." . $overProfile->getClientOriginalExtension();
+                    Storage::disk('public')->put('img/user/' . $newName_overProfile, file_get_contents($overProfile));
+                    $data['coverPhotoUrl'] = $newName_overProfile;
+                } else {
+                    $data['coverPhotoUrl'] = auth()->user()->coverPhotoUrl;
+                }
+            } else {
+                if (!isset($data['profileUrl'])) {
+                    $data['profileUrl'] = auth()->user()->profileUrl;
+                }
+                if (!isset($data['overPhotoUrl'])) {
+                    $data['coverPhotoUrl'] = auth()->user()->coverPhotoUrl;
+                }
+            }
+
             if (Hash::check($data['password'], $user->password)) {
                 $data['password'] = Hash::make($data['password']);
                 User::where('idUser', $user->idUser)->update($data);
