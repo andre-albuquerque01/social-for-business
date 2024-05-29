@@ -27,14 +27,19 @@ export async function Login(
 
     const data = await response.json()
 
-    if (data.data && data.data.message === 'E-mail não verificado') {
+    const message =
+      typeof data.message === 'string'
+        ? data.message
+        : JSON.stringify(data.message)
+
+    if (message.includes('E-mail não verificado')) {
       throw new Error('E-mail não verificado!')
     }
-    if (
-      data.data &&
-      data.data.message === 'Cannot use empty array elements in arrays'
-    ) {
+    if (message.includes('Email or password incorrect')) {
       throw new Error('E-mail ou senha invalida!')
+    }
+    if (message.includes('Email not registered')) {
+      throw new Error('E-mail não registrado!')
     }
 
     cookiesStore.set('token', data.access_token, {
