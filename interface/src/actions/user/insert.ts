@@ -46,8 +46,17 @@ export async function InsertUser(
 
     const data = await response.json()
 
-    if (data.message === 'The email has already been taken.')
+    const message =
+      typeof data.message === 'string'
+        ? data.message
+        : JSON.stringify(data.message)
+
+    if (message.includes('The email has already been taken.'))
       throw new Error('E-mail já cadastrado!')
+
+    if (message.includes('The image url one field must be an image.')) {
+      throw new Error('Tipo de arquivo não é uma imagem.')
+    }
 
     // return { data: null, error: '', ok: true }
   } catch (error) {

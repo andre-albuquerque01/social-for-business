@@ -40,18 +40,27 @@ export async function UpdateUser(
     RevalidateTag('user')
 
     const data = await response.json()
-    console.log(data)
 
-    if (data.message === 'The email has already been taken.')
+    const message =
+      typeof data.message === 'string'
+        ? data.message
+        : JSON.stringify(data.message)
+
+    if (message.includes('The email has already been taken.'))
       throw new Error('E-mail já cadastrado!')
 
-    if (data.message === 'The password field is required.')
+    if (message.includes('The image url one field must be an image.')) {
+      throw new Error('Tipo de arquivo não é uma imagem.')
+    }
+
+    if (message.includes('The password field is required.'))
       throw new Error('Senha é requirida.')
 
-    if (data.message === 'Error updating') throw new Error('Senha incorreta.')
-    return { data: null, error: '', ok: true }
+    if (message.includes('Error updating')) throw new Error('Senha incorreta.')
+
+    // return { data: null, error: '', ok: true }
   } catch (error) {
     return apiError(error)
   }
-  // redirect('/dashboard')
+  redirect('/dashboard')
 }
