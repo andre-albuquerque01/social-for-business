@@ -22,10 +22,10 @@ export default async function Dashboard({ searchParams }: SearchParamsProps) {
 
   return (
     <div className="min-h-screen text-white flex gap-4 p-4 max-md:flex-col ">
-      <div className="md:w-[25%] md:max-w-full">
+      <div className="md:w-[25%] max-md:max-w-full">
         <CardUserComponent />
       </div>
-      <div className="space-y-4 md:w-[75%] md:max-w-full">
+      <div className="space-y-4 md:w-[75%] max-md:max-w-full">
         <CreatePost />
         {dt && (
           <CardPostsComponent data={data} query={page} countPage={count} />
