@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PutUserRequest;
 use App\Http\Requests\RecoverPasswordRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Resources\UserResource;
@@ -35,7 +36,7 @@ class UserController extends Controller
         return $this->userService->showOneUser($id);
     }
 
-    public function update(UserStoreRequest $data)
+    public function update(PutUserRequest $data)
     {
         return $this->userService->update($data->validated());
     }

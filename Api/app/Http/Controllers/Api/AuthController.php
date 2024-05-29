@@ -18,7 +18,6 @@ class AuthController extends Controller
 
     public function login(AuthValidated $data)
     {
-        $input = $data->validated();
-        return $this->userService->Auth($input);
+        return $this->userService->Auth($data->validated());
     }
 }
