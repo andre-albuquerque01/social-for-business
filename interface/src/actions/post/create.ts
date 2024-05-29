@@ -28,17 +28,28 @@ export async function CreatePostAction(
     })
 
     const data = await response.json()
+    console.log(data)
 
     RevalidateTag('post')
 
+    const message =
+      typeof data.message === 'string'
+        ? data.message
+        : JSON.stringify(data.message)
+
     if (
-      data.message === 'The description field must be at least 10 characters.'
+      message.includes('The description field must be at least 10 characters.')
     )
       throw new Error('Descrição precisar ter no mínimo 10 caracteres.')
 
+    if (message.includes('The image url one field must be an image.')) {
+      throw new Error('Tipo de arquivo não é uma imagem.')
+    }
+
     if (
-      data.message ===
-      'The description field must not be greater than 255 characters.'
+      message.includes(
+        'The description field must not be greater than 255 characters.',
+      )
     )
       throw new Error('Descrição pode ter no máximo 255 caracteres.')
 

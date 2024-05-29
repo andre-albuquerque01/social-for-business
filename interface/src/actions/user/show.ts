@@ -2,6 +2,7 @@
 
 import ApiAction from '@/functions/data/apiAction'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export interface UserInterface {
   idUser: string
@@ -25,7 +26,9 @@ export async function ShowUser() {
       },
     })
     const data = await response.json()
-
+    if (data.message === 'Unauthenticated.') {
+      redirect('/')
+    }
     return data.data
   } catch (err) {
     console.log(err)
