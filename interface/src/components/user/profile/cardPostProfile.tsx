@@ -17,8 +17,7 @@ export const CardPostsProfileComponent = async ({
   query: number
   countPage: number
 }) => {
-  const dt = await ShowUser()
-  const user: UserInterface = dt.data
+  const user: UserInterface = await ShowUser()
 
   return (
     <>
