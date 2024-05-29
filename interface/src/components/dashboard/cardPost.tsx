@@ -38,8 +38,8 @@ export const CardPostsComponent = async ({
   query: number
   countPage: number
 }) => {
-  const dt = await ShowUser()
-  const user: UserInterface = dt?.data
+  const user: UserInterface = await ShowUser()
+
   return (
     <>
       {data.length > 0 &&
@@ -48,24 +48,24 @@ export const CardPostsComponent = async ({
           <div className="bg-zinc-800 min-h-32 p-6 " key={post.idPost}>
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-4">
-                {user.idUser === post.idUser && post?.profileUrl ? (
+                {post?.profileUrl ? (
                   <Image
                     src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/user/${post?.profileUrl}`}
                     alt="Perfil"
-                    width={30}
-                    height={30}
+                    width={40}
+                    height={40}
                     className="rounded-lg"
                   />
                 ) : (
                   <Image
                     src={`/user.png`}
                     alt="Perfil"
-                    width={30}
-                    height={30}
+                    width={40}
+                    height={40}
                     className="rounded-lg"
                   />
                 )}
-                {user.idUser === post.idUser ? (
+                {user && user.idUser === post.idUser ? (
                   <Link href={`/user/profile`}>
                     <span className="uppercase font-bold">
                       {post.firstName}
@@ -83,7 +83,7 @@ export const CardPostsComponent = async ({
               </div>
               <div className="opacity-50 flex gap-2">
                 <span>{FormatData(post.created_at)}</span>
-                {user.idUser === post.idUser && (
+                {user && user.idUser === post.idUser && (
                   <DropdownPost idPost={post.idPost} />
                 )}
               </div>
@@ -107,7 +107,8 @@ export const CardPostsComponent = async ({
                   <div key={comment.idComment} className="p-3">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-2">
-                        {user.idUser === comment.idUser &&
+                        {user &&
+                        user.idUser === comment.idUser &&
                         comment?.profileUrl ? (
                           <Image
                             src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/user/${comment?.profileUrl}`}
@@ -136,7 +137,7 @@ export const CardPostsComponent = async ({
                       </div>
                       <div className="opacity-50 flex gap-2">
                         {FormatData(comment.created_at)}
-                        {user.idUser === comment.idUser && (
+                        {user && user.idUser === comment.idUser && (
                           <DropdownComment idComment={comment.idComment} />
                         )}
                       </div>

@@ -3,14 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { LogoutComponent } from '../user/logout/logout'
 import { BackDashboardComponent } from './backDashboard'
-import { redirect } from 'next/navigation'
 
 export const CardUserComponent = async () => {
-  const dt = await ShowUser()
-  const data: UserInterface = dt?.data
-  if (dt.message === 'Unauthenticated.') {
-    redirect('/')
-  }
+  const data: UserInterface = await ShowUser()
+
   return (
     <div className="h-auto bg-zinc-800 rounded-lg flex flex-col justify-between">
       <div className="overflow-hidden">
@@ -57,7 +53,7 @@ export const CardUserComponent = async () => {
           <p className="text-center">{data?.lastName}</p>
         </Link>
       </div>
-      <div className="h-auto border-t border-zinc-600 flex flex-col items-center justify-evenly gap-3 p-3 mt-4">
+      <div className="h-auto border-t border-zinc-600 flex flex-col items-center justify-evenly gap-3 p-3 mt-4 max-md:grid max-md:mx-auto max-md:grid-cols-2">
         <BackDashboardComponent />
         <Link
           href={`/user/profile`}
