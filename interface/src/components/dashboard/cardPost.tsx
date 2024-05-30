@@ -96,13 +96,13 @@ export const CardPostsComponent = async ({
                   alt="Image post"
                   width={550}
                   height={550}
-                  className="object-scale-down mx-auto max-w-96 max-h-96 p-4 max-md:max-w-80 max-md:max-h-80"
+                  className="object-scale-down mx-auto max-w-96 max-h-96 py-2 max-md:max-w-full max-md:max-h-80"
                 />
               )}
             </div>
             {post.comments.length > 0 && (
               <div className="mt-4 text-justify bg-zinc-700 rounded-lg max-w-full">
-                <h2 className="px-3 font-semibold">Comentários</h2>
+                <h2 className="px-3 py-2 font-semibold">Comentários</h2>
                 {post.comments.map((comment) => (
                   <div key={comment.idComment} className="p-3">
                     <div className="flex justify-between items-center">
@@ -143,7 +143,7 @@ export const CardPostsComponent = async ({
                       </div>
                     </div>
                     <div className="text-wrap break-words text-justify">
-                      <p className="min-h-5">{comment.comment}</p>
+                      <p className="min-h-5 ml-[38px]">{comment.comment}</p>
                     </div>
                   </div>
                 ))}

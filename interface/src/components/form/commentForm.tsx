@@ -43,20 +43,22 @@ export function CommentForm({ idPost }: { idPost: string }) {
   }
 
   return (
-    <form action={action}>
-      <input type="hidden" name="post_idPost" value={idPost} />
-      <textarea
-        name="comment"
-        id="comment"
-        className="w-[100%] bg-zinc-600 p-3 outline-none rounded-lg"
-        placeholder="Começar comentar..."
-        rows={3}
-        required
-        value={comment}
-        onChange={handleCommentChange}
-      ></textarea>
-      <FormBtn />
-      {state.error}
-    </form>
+    <>
+      <form action={action}>
+        <input type="hidden" name="post_idPost" value={idPost} />
+        <textarea
+          name="comment"
+          id="comment"
+          className="w-[100%] bg-zinc-600 p-3 outline-none rounded-lg"
+          placeholder="Começar comentar..."
+          rows={3}
+          required
+          value={comment}
+          onChange={handleCommentChange}
+        ></textarea>
+        <FormBtn />
+        <span className="text-md text-red-600 ml-5">{state.error}</span>
+      </form>
+    </>
   )
 }
