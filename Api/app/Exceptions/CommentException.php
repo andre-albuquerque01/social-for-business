@@ -10,7 +10,7 @@ class CommentException extends Exception
     public function render()
     {
         return response()->json([
-            'error' => class_basename($this),,
+            'error' => class_basename($this),
             'message' => $this->message,
         ], 401);
     }
