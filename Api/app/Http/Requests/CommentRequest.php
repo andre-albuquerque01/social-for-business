@@ -23,7 +23,7 @@ class CommentRequest extends FormRequest
     {
         return [
             'post_idPost' => 'required',
-            'comment' => 'required|string|regex:/^[^<>]*$/',
+            'comment' => 'required|string|max:255|min:3|regex:/^[^<>]*$/',
         ];
     }
 }
