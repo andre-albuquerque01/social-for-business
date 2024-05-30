@@ -1,6 +1,8 @@
 import { jwtVerify } from 'jose'
 
-export default async function verifyToken(token: string): Promise<boolean> {
+export default async function verifyToken(
+  token: string | undefined,
+): Promise<boolean> {
   if (!token) return false
   try {
     await jwtVerify(
