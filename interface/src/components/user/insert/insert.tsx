@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useFormState, useFormStatus } from 'react-dom'
 import { useState } from 'react'
 import Image from 'next/image'
-import { GoX } from 'react-icons/go'
+import { GoArrowLeft, GoX } from 'react-icons/go'
 
 function FormButton() {
   const { pending } = useFormStatus()
@@ -51,7 +51,9 @@ export const InsertUserComponent = () => {
 
   return (
     <form className="space-y-5 flex flex-col text-white" action={action}>
-      <Link href="/">{'<- Voltar'}</Link>
+      <Link href="/" className="flex items-center">
+        <GoArrowLeft className="w-5 h-5" /> Voltar
+      </Link>
       <div className="mx-auto md:w-96 max-md:w-80 space-y-5">
         <div>
           <label htmlFor="profileUrl">Imagem de perfil:</label>
@@ -151,7 +153,7 @@ export const InsertUserComponent = () => {
         <input type="checkbox" name="term_aceite" id="term_aceite" />{' '}
         <label htmlFor="term_aceite">
           Ler{' '}
-          <Link href="" className="text-blue-600">
+          <Link href="/term" className="text-blue-600">
             termos de aceites
           </Link>
           <span className="text-xs text-red-600"> *</span>

@@ -71,8 +71,8 @@ export const CreatePost = () => {
               type="file"
               name="imageUrlOne"
               id="imageUrlOne"
-              className="text-sm text-stone-500
-            file:mr-5 file:py-1 file:px-3 file:border-[1px]
+              className="text-sm text-stone-500 max-sm:w-40
+            file:py-1 file:px-3 file:border-[1px]
             file:text-xs file:font-medium
             file:bg-stone-50 file:text-stone-700
             hover:file:cursor-pointer hover:file:bg-blue-50
