@@ -26,7 +26,8 @@ export async function ShowUser() {
       },
     })
     const data = await response.json()
-    if (data.message === 'Unauthenticated.') {
+    if (data.message === 'Unauthenticated.' || !data) {
+      cookies().delete('token')
       redirect('/')
     }
     return data.data
