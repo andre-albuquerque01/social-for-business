@@ -33,15 +33,23 @@ export async function UpdatePost(
         : JSON.stringify(data.message)
 
     if (
+      message &&
       message.includes('The description field must be at least 10 characters.')
     )
       throw new Error('Descrição precisar ter no mínimo 10 caracteres.')
 
-    if (message.includes('The image url one field must be an image.')) {
+    if (
+      message &&
+      message.includes('The image url one field must be an image.')
+    ) {
       throw new Error('Tipo de arquivo não é uma imagem.')
     }
 
+    if (message && message.includes('The comment field format is invalid.'))
+      throw new Error('Não pode inserir html.')
+
     if (
+      message &&
       message.includes(
         'The description field must not be greater than 255 characters.',
       )

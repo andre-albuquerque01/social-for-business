@@ -51,10 +51,13 @@ export async function InsertUser(
         ? data.message
         : JSON.stringify(data.message)
 
-    if (message.includes('The email has already been taken.'))
+    if (message && message.includes('The email has already been taken.'))
       throw new Error('E-mail já cadastrado!')
 
-    if (message.includes('The image url one field must be an image.')) {
+    if (
+      message &&
+      message.includes('The image url one field must be an image.')
+    ) {
       throw new Error('Tipo de arquivo não é uma imagem.')
     }
 
