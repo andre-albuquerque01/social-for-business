@@ -46,17 +46,21 @@ export async function UpdateUser(
         ? data.message
         : JSON.stringify(data.message)
 
-    if (message.includes('The email has already been taken.'))
+    if (message && message.includes('The email has already been taken.'))
       throw new Error('E-mail já cadastrado!')
 
-    if (message.includes('The image url one field must be an image.')) {
+    if (
+      message &&
+      message.includes('The image url one field must be an image.')
+    ) {
       throw new Error('Tipo de arquivo não é uma imagem.')
     }
 
-    if (message.includes('The password field is required.'))
+    if (message && message.includes('The password field is required.'))
       throw new Error('Senha é requirida.')
 
-    if (message.includes('Error updating')) throw new Error('Senha incorreta.')
+    if (message && message.includes('Error updating'))
+      throw new Error('Senha incorreta.')
 
     // return { data: null, error: '', ok: true }
   } catch (error) {
