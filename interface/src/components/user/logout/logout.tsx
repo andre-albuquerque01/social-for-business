@@ -1,12 +1,9 @@
 'use client'
 import { Logout } from '@/actions/user/logout'
-import { useRouter } from 'next/navigation'
 
 export const LogoutComponent = () => {
-  const router = useRouter()
   async function handleLogout() {
     await Logout()
-    router.push('/')
   }
 
   return (
