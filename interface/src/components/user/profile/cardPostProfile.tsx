@@ -25,41 +25,40 @@ export const CardPostsProfileComponent = async ({
         data.map((post) => (
           <div className="bg-zinc-800 min-h-32 p-6 " key={post.idPost}>
             <div className="flex justify-between items-center">
-              <div className="flex items-center gap-4">
-                {user.idUser === post.idUser && post?.profileUrl ? (
+              <div className="flex items-center gap-2">
+                {post?.profileUrl ? (
                   <Image
-                    src={`http://localhost/storage/img/user/${post?.profileUrl}`}
+                    src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/user/${post?.profileUrl}`}
                     alt="Perfil"
-                    width={30}
-                    height={30}
+                    width={40}
+                    height={40}
                     className="rounded-lg"
                   />
                 ) : (
                   <Image
                     src={`/user.png`}
                     alt="Perfil"
-                    width={30}
-                    height={30}
+                    width={40}
+                    height={40}
                     className="rounded-lg"
                   />
                 )}
-                {user.idUser === post.idUser ? (
-                  <Link href={`/user/profile`}>
-                    <span className="uppercase font-bold">
-                      {post.firstName}
-                    </span>{' '}
+                {user && user.idUser === post.idUser ? (
+                  <Link href={`/user/profile`} className="capitalize">
+                    <span className="font-bold">{post.firstName}</span>{' '}
                     <span> {post.lastName}</span>
                   </Link>
                 ) : (
-                  <Link href={`/user/profile/${post.idUser}`}>
-                    <span className="uppercase font-bold">
-                      {post.firstName}
-                    </span>{' '}
+                  <Link
+                    href={`/user/profile/${post.idUser}`}
+                    className="capitalize"
+                  >
+                    <span className="font-bold">{post.firstName}</span>{' '}
                     <span> {post.lastName}</span>
                   </Link>
                 )}
               </div>
-              <div className="opacity-50 flex gap-2">
+              <div className="opacity-50 flex gap-2 items-center">
                 {FormatData(post.created_at)}
                 {user.idUser === post.idUser && (
                   <DropdownPost idPost={post.idPost} />
@@ -104,23 +103,28 @@ export const CardPostsProfileComponent = async ({
                           />
                         )}
                         {comment.idUser && (
-                          <Link href={`/user/profile/${comment.idUser}`}>
-                            <span className="uppercase font-bold">
+                          <Link
+                            href={`/user/profile/${comment.idUser}`}
+                            className="capitalize"
+                          >
+                            <span className="font-bold">
                               {comment.firstName}
                             </span>{' '}
                             <span> {comment.lastName}</span>
                           </Link>
                         )}
                       </div>
-                      <div className="opacity-50 flex gap-2">
-                        {FormatData(comment.created_at)}
+                      <div className="opacity-50 flex gap-2 items-center">
+                        <span className="text-sm">
+                          {FormatData(comment.created_at)}
+                        </span>
                         {user.idUser === comment.idUser && (
                           <DropdownComment idComment={comment.idComment} />
                         )}
                       </div>
                     </div>
                     <div className="text-wrap break-words text-justify">
-                      <p className="min-h-5">{comment.comment}</p>
+                      <p className="min-h-5 ml-[38px]">{comment.comment}</p>
                     </div>
                   </div>
                 ))}

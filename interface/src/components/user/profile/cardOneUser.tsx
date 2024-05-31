@@ -14,9 +14,9 @@ export const CardOneUserComponent = async ({ ...props }: UserProps) => {
   return (
     <div className="h-auto bg-zinc-800 rounded-lg flex flex-col justify-between">
       <div className="overflow-hidden">
-        {props.coverPhotoUrl ? (
+        {props?.coverPhotoUrl ? (
           <Image
-            src={`http://localhost/storage/img/user/${props.coverPhotoUrl}`}
+            src={`http://localhost/storage/img/user/${props?.coverPhotoUrl}`}
             alt="Capa"
             width={300}
             height={100}
@@ -31,10 +31,10 @@ export const CardOneUserComponent = async ({ ...props }: UserProps) => {
             className="h-20 w-full object-cover rounded-t-lg"
           />
         )}
-        <div className="transform mx-auto mt-[-40px] w-20 h-20 border-2 p-0.5 rounded-lg border-cyan-300">
-          {props.profileUrl ? (
+        <div className="transform mx-auto mt-[-40px] max-w-20 w-auto max-h-20 h-auto border-2 p-0.5 rounded-lg border-cyan-300">
+          {props?.profileUrl ? (
             <Image
-              src={`http://localhost/storage/img/user/${props.profileUrl}`}
+              src={`http://localhost/storage/img/user/${props?.profileUrl}`}
               alt="Perfil"
               width={80}
               height={80}
@@ -50,10 +50,10 @@ export const CardOneUserComponent = async ({ ...props }: UserProps) => {
             />
           )}
         </div>
-        <h1 className="text-center mt-5 font-bold uppercase">
+        <h1 className="text-center mt-5 font-bold capitalize">
           {props.firstName}
         </h1>
-        <p className="text-center">{props.lastName}</p>
+        <p className="text-center capitalize">{props?.lastName}</p>
       </div>
       <div className="h-auto border-t border-zinc-600 flex flex-col items-center justify-evenly gap-3 p-3 mt-4">
         <BackDashboardComponent />
