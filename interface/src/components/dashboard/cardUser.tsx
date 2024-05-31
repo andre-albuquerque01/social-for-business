@@ -10,9 +10,9 @@ export const CardUserComponent = async () => {
   return (
     <div className="h-auto bg-zinc-800 rounded-lg flex flex-col justify-between">
       <div className="overflow-hidden">
-        {data.coverPhotoUrl ? (
+        {data?.coverPhotoUrl ? (
           <Image
-            src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/user/${data.coverPhotoUrl}`}
+            src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/user/${data?.coverPhotoUrl}`}
             alt="Capa"
             width={300}
             height={100}
