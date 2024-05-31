@@ -32,15 +32,20 @@ export async function ShowPost(page: number) {
         revalidate: 60 * 30,
         tags: ['post'],
       },
-      // cache: 'no-cache',
     })
-    // const data = await response.json()
+
     const datas = await response.json()
+
+    if (!datas.meta || typeof datas.meta.last_page === 'undefined') {
+      throw new Error('Estrutura de dados inesperada.')
+    }
+
     const countPage = datas.meta.last_page
     const data = datas.data
 
     return { data, countPage }
   } catch (err) {
     console.log(err)
+    return null
   }
 }
