@@ -47,7 +47,7 @@ export const CardPostsComponent = async ({
         data.map((post) => (
           <div className="bg-zinc-800 min-h-32 p-6 " key={post.idPost}>
             <div className="flex justify-between items-center">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
                 {post?.profileUrl ? (
                   <Image
                     src={`${process.env.NEXT_PUBLIC_ROUTE_STORAGE_FILES}/user/${post?.profileUrl}`}
@@ -66,23 +66,22 @@ export const CardPostsComponent = async ({
                   />
                 )}
                 {user && user.idUser === post.idUser ? (
-                  <Link href={`/user/profile`}>
-                    <span className="uppercase font-bold">
-                      {post.firstName}
-                    </span>{' '}
+                  <Link href={`/user/profile`} className="capitalize">
+                    <span className="font-bold">{post.firstName}</span>{' '}
                     <span> {post.lastName}</span>
                   </Link>
                 ) : (
-                  <Link href={`/user/profile/${post.idUser}`}>
-                    <span className="uppercase font-bold">
-                      {post.firstName}
-                    </span>{' '}
+                  <Link
+                    href={`/user/profile/${post.idUser}`}
+                    className="capitalize"
+                  >
+                    <span className="font-bold">{post.firstName}</span>{' '}
                     <span> {post.lastName}</span>
                   </Link>
                 )}
               </div>
-              <div className="opacity-50 flex gap-2">
-                <span>{FormatData(post.created_at)}</span>
+              <div className="opacity-50 flex items-center gap-2">
+                <span className="text-sm">{FormatData(post.created_at)}</span>
                 {user && user.idUser === post.idUser && (
                   <DropdownPost idPost={post.idPost} />
                 )}
@@ -127,16 +126,21 @@ export const CardPostsComponent = async ({
                           />
                         )}
                         {comment.idUser && (
-                          <Link href={`/user/profile/${comment.idUser}`}>
-                            <span className="uppercase font-bold">
+                          <Link
+                            href={`/user/profile/${comment.idUser}`}
+                            className="capitalize"
+                          >
+                            <span className="font-bold">
                               {comment.firstName}
                             </span>{' '}
                             <span> {comment.lastName}</span>
                           </Link>
                         )}
                       </div>
-                      <div className="opacity-50 flex gap-2">
-                        {FormatData(comment.created_at)}
+                      <div className="opacity-50 flex items-center gap-1">
+                        <span className="text-sm">
+                          {FormatData(comment.created_at)}
+                        </span>
                         {user && user.idUser === comment.idUser && (
                           <DropdownComment idComment={comment.idComment} />
                         )}
