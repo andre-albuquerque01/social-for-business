@@ -1,4 +1,4 @@
-# Social Midia in laravel
+# Social Media in laravel
 
 ## Requisitos do Sistema
 
@@ -37,7 +37,7 @@ Além disso, faz uso de:
 Clone o repositório:
 
 ```bash
-git clone https://github.com/andre-albuquerque01/SocialMidia.git
+git clone https://github.com/andre-albuquerque01/SocialMedia.git
 ```
 
 ### Passo 2: Configuração do Back-end
@@ -45,7 +45,7 @@ git clone https://github.com/andre-albuquerque01/SocialMidia.git
 Entre na pasta back-end:
 
 ```bash
-cd /SocialMidia/Api
+cd /SocialMedia/Api
 ```
 
 Inicialize os pacotes do Laravel:
