@@ -1,6 +1,6 @@
-import { fontBody } from '@/functions/font/fonts'
 import type { Metadata } from 'next'
 import './globals.css'
+import { fontBody } from './fonts'
 
 export const metadata: Metadata = {
   title: 'Jesus is love',
