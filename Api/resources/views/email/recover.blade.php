@@ -59,7 +59,7 @@
         <p>Seu token para recuperação de senha é:</p>
         <h2>{{ $data['token'] }}</h2>
 
-        <a href="">Recuperar Senha</a>
+        <a href="{{ env('PATH_RECOVER_PASSWORD') }}">Recuperar Senha</a>
 
         <p>Este link de recuperação é válido por {{ $data['expiration_hours'] }}. Após este período, será
             necessário solicitar uma nova recuperação de senha.</p>
