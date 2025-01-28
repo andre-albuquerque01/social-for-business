@@ -1,4 +1,6 @@
-# Social Media in laravel
+# Rede social
+
+A rede social interna da empresa serve para que as pessoas sejam mais colaborativas e se divirtam no ambiente de trabalho. Dessa forma, é possível que os colaboradores tenham uma postura mais informal e interajam mais com colegas de toda a empresa.
 
 ## Requisitos do Sistema
 
